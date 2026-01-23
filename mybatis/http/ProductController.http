@@ -1,0 +1,14 @@
+### GET request to example server
+PATCH http://localhost:8080/products/v1/update-all
+Content-Type: application/json
+
+[
+  {
+    "productId": 1,
+    "productName": null,
+    "price": null,
+    "quantity": null
+  }
+]
+
+###

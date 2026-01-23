@@ -5,8 +5,8 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
@@ -28,22 +28,23 @@ public class MapperTestConfig {
         var factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
 
-        Resource[] resources = new PathMatchingResourcePatternResolver()
-                .getResources("classpath*:data/spring/mybatis/adapter/out/persistence/*.xml");
-        for (Resource resource : resources) {
-            System.out.println("xml 가져온 것은 ! = " + resource.getFilename());
-        }
-        factoryBean.setMapperLocations(
-                resources
+        factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
+                        .getResources("classpath*:data/spring/mybatis/adapter/out/persistence/*.xml")
         );
 
         factoryBean.setTypeAliasesPackage("data.spring.mybatis.domain");
 
         var conf = new org.apache.ibatis.session.Configuration();
         conf.setMapUnderscoreToCamelCase(true);
+        conf.setLogImpl(org.apache.ibatis.logging.stdout.StdOutImpl.class);
 
         factoryBean.setConfiguration(conf);
 
         return factoryBean.getObject();
+    }
+
+    @Bean
+    public DataSourceTransactionManager transactionManager(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
     }
 }

@@ -7,18 +7,34 @@
         insert into product (product_name, price, quantity)
         values (#{productName}, #{price}, #{quantity})
     </insert>
+
+    <insert id="saveAll" useGeneratedKeys="true" keyProperty="productId">
+        insert into product (product_name, price, quantity)
+        values
+        <foreach collection="products" item="product" separator=",">
+            (#{product.productName}, #{product.price}, #{product.quantity})
+        </foreach>
+    </insert>
+
     <update id="update">
         update product
-        set product_name = #{updateParam.productName},
-            price = #{updateParam.price},
-            quantity = #{updateParam.quantity}
+        <set>
+            <if test="productName != null">product_name = #{productName},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="quantity != null">quantity = #{quantity},</if>
+        </set>
+        <where>
+
+        </where>
         where product_id = #{productId}
     </update>
+
     <select id="findById" resultType="Product">
         select product_id, product_name, price, quantity
         from product
         where product_id = #{productId}
     </select>
+
     <select id="findAll" resultType="Product">
         select product_id, product_name, price, quantity
         from product
@@ -31,6 +47,7 @@
             </if>
         </where>
     </select>
+
     <delete id="deleteAll">
         truncate table product restart identity
     </delete>
