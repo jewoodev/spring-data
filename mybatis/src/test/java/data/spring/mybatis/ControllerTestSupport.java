@@ -1,6 +1,5 @@
 package data.spring.mybatis;
 
-import data.spring.mybatis.adapter.in.GlobalControllerAdvice;
 import data.spring.mybatis.adapter.in.ProductController;
 import data.spring.mybatis.application.required.ProductUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import tools.jackson.databind.ObjectMapper;
 
 @WebMvcTest(controllers = {
         ProductController.class,
-        GlobalControllerAdvice.class
 })
 public abstract class ControllerTestSupport {
     @Autowired
