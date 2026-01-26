@@ -5,17 +5,9 @@ import jakarta.validation.Valid;
 
 import java.util.List;
 
-public class ProductUpdateBatchRequest {
-    List<@Valid ProductUpdateRequest> updateRequests;
-
-    public ProductUpdateBatchRequest(List<ProductUpdateRequest> updateRequests) {
-        this.updateRequests = updateRequests;
-    }
-
-    public List<ProductUpdateRequest> getUpdateRequests() {
-        return this.updateRequests;
-    }
-
+public record ProductUpdateBatchRequest(
+        List<@Valid ProductUpdateRequest> updateRequests
+) {
     public List<ProductUpdateCommand> toCommands() {
         return this.updateRequests.stream()
                 .map(request ->

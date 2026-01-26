@@ -1,14 +1,16 @@
 ### GET request to example server
-PATCH http://localhost:8080/products/v1/update-all
+PATCH http://localhost:8080/products/v1/update
 Content-Type: application/json
 
-[
-  {
-    "productId": 1,
-    "productName": null,
-    "price": null,
-    "quantity": null
-  }
-]
+{
+  "updateRequests": [
+    {
+      "productId": 1,
+      "productName": "리얼 마이바티스",
+      "price": 20000,
+      "quantity": 100
+    }
+  ]
+}
 
 ###

@@ -1,6 +1,7 @@
 package data.spring.mybatis;
 
 import data.spring.mybatis.adapter.out.persistence.ProductMapper;
+import data.spring.mybatis.adapter.out.persistence.ProductPersister;
 import data.spring.mybatis.application.required.ProductRepository;
 import data.spring.mybatis.application.required.ProductUseCase;
 import data.spring.mybatis.application.service.ProductService;
@@ -9,11 +10,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import(MapperTestConfig.class)
+@Import(RepositoryTestConfig.class)
 public class IntegrationTestConfig {
     @Bean
     public ProductRepository productRepository(ProductMapper productMapper) {
-        return productMapper;
+        return new ProductPersister(productMapper);
     }
 
     @Bean

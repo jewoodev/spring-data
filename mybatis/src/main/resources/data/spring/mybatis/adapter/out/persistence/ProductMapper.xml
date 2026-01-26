@@ -11,8 +11,8 @@
     <insert id="saveAll" useGeneratedKeys="true" keyProperty="productId">
         insert into product (product_name, price, quantity)
         values
-        <foreach collection="products" item="product" separator=",">
-            (#{product.productName}, #{product.price}, #{product.quantity})
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.productName}, #{entity.price}, #{entity.quantity})
         </foreach>
     </insert>
 
@@ -26,13 +26,13 @@
         where product_id = #{productId}
     </update>
 
-    <select id="findById" resultType="Product">
+    <select id="findById" resultType="ProductEntity">
         select product_id, product_name, price, quantity
         from product
         where product_id = #{productId}
     </select>
 
-    <select id="findAll" resultType="Product">
+    <select id="findAll" resultType="ProductEntity">
         select product_id, product_name, price, quantity
         from product
         <where>

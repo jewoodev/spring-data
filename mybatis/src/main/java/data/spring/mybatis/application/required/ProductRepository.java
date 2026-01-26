@@ -1,22 +1,22 @@
 package data.spring.mybatis.application.required;
 
-import data.spring.mybatis.adapter.in.dto.ProductSearchCond;
+import data.spring.mybatis.adapter.out.persistence.ProductEntity;
+import data.spring.mybatis.application.service.command.ProductSearchCommand;
 import data.spring.mybatis.application.service.command.ProductUpdateCommand;
-import data.spring.mybatis.domain.Product;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ProductRepository {
-    void save(Product product);
+    void save(ProductEntity productEntity);
 
-    int saveAll(List<Product> products);
+    int saveAll(List<ProductEntity> productEntities);
 
     void update(ProductUpdateCommand updateCommand);
 
-    Optional<Product> findById(Long productId);
+    Optional<ProductEntity> findById(Long productId);
 
-    List<Product> findAll(ProductSearchCond searchCond);
+    List<ProductEntity> findAll(ProductSearchCommand searchCommand);
 
     int deleteAll();
 }

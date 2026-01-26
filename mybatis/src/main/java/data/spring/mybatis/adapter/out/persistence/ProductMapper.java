@@ -1,25 +1,23 @@
 package data.spring.mybatis.adapter.out.persistence;
 
-import data.spring.mybatis.adapter.in.dto.ProductSearchCond;
-import data.spring.mybatis.adapter.in.dto.ProductUpdateRequest;
-import data.spring.mybatis.application.required.ProductRepository;
-import data.spring.mybatis.domain.Product;
+import data.spring.mybatis.application.service.command.ProductSearchCommand;
+import data.spring.mybatis.application.service.command.ProductUpdateCommand;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 import java.util.Optional;
 
 @Mapper
-public interface ProductMapper extends ProductRepository {
-    void save(Product product);
+public interface ProductMapper {
+    void save(ProductEntity entity);
 
-    int saveAll(List<Product> products);
+    int saveAll(List<ProductEntity> entities);
 
-    void update(ProductUpdateRequest updateDto);
+    void update(ProductUpdateCommand updateCommand);
 
-    Optional<Product> findById(Long productId);
+    Optional<ProductEntity> findById(Long productId);
 
-    List<Product> findAll(ProductSearchCond searchCond);
+    List<ProductEntity> findAll(ProductSearchCommand searchCond);
 
     int deleteAll();
 }

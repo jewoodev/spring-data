@@ -1,9 +1,9 @@
 package data.spring.mybatis.application.service;
 
+import data.spring.mybatis.adapter.out.persistence.ProductEntity;
 import data.spring.mybatis.application.required.ProductRepository;
 import data.spring.mybatis.application.required.ProductUseCase;
 import data.spring.mybatis.application.service.command.ProductUpdateCommand;
-import data.spring.mybatis.domain.Product;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -17,8 +17,8 @@ public class ProductService implements ProductUseCase {
 
     @Transactional
     @Override
-    public int saveAll(List<Product> products) {
-        return productRepository.saveAll(products);
+    public int saveAll(List<ProductEntity> entities) {
+        return productRepository.saveAll(entities);
     }
 
     @Transactional

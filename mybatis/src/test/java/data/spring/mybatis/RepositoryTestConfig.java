@@ -1,5 +1,8 @@
 package data.spring.mybatis;
 
+import data.spring.mybatis.adapter.out.persistence.ProductMapper;
+import data.spring.mybatis.adapter.out.persistence.ProductPersister;
+import data.spring.mybatis.application.required.ProductRepository;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -14,7 +17,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @MapperScan("data.spring.mybatis.adapter.out.persistence")
-public class MapperTestConfig {
+public class RepositoryTestConfig {
     @Bean
     public DataSource datasource() {
         return new EmbeddedDatabaseBuilder()
@@ -32,7 +35,7 @@ public class MapperTestConfig {
                         .getResources("classpath*:data/spring/mybatis/adapter/out/persistence/*.xml")
         );
 
-        factoryBean.setTypeAliasesPackage("data.spring.mybatis.domain");
+        factoryBean.setTypeAliasesPackage("data.spring.mybatis.adapter.out.persistence");
 
         var conf = new org.apache.ibatis.session.Configuration();
         conf.setMapUnderscoreToCamelCase(true);
@@ -46,5 +49,10 @@ public class MapperTestConfig {
     @Bean
     public DataSourceTransactionManager transactionManager(DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
+    }
+
+    @Bean
+    public ProductRepository productRepository(ProductMapper productMapper) {
+        return new ProductPersister(productMapper);
     }
 }
