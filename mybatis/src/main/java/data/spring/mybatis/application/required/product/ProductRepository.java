@@ -1,8 +1,8 @@
-package data.spring.mybatis.application.required;
+package data.spring.mybatis.application.required.product;
 
-import data.spring.mybatis.application.service.command.ProductSearchCommand;
-import data.spring.mybatis.application.service.command.ProductUpdateCommand;
-import data.spring.mybatis.domain.Product;
+import data.spring.mybatis.application.service.product.command.ProductSearchCommand;
+import data.spring.mybatis.application.service.product.command.ProductUpdateCommand;
+import data.spring.mybatis.domain.product.Product;
 
 import java.util.List;
 import java.util.Optional;

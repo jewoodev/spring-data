@@ -1,4 +1,4 @@
-package data.spring.mybatis.domain;
+package data.spring.mybatis.domain.product;
 
 
 public record Product(

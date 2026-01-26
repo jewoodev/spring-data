@@ -1,9 +1,9 @@
-package data.spring.mybatis.adapter.out.persistence;
+package data.spring.mybatis.adapter.out.persistence.product;
 
-import data.spring.mybatis.application.required.ProductRepository;
-import data.spring.mybatis.application.service.command.ProductSearchCommand;
-import data.spring.mybatis.application.service.command.ProductUpdateCommand;
-import data.spring.mybatis.domain.Product;
+import data.spring.mybatis.application.required.product.ProductRepository;
+import data.spring.mybatis.application.service.product.command.ProductSearchCommand;
+import data.spring.mybatis.application.service.product.command.ProductUpdateCommand;
+import data.spring.mybatis.domain.product.Product;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package data.spring.mybatis.application.service.command;
+package data.spring.mybatis.application.service.product.command;
 
 public record ProductSearchCommand(
         String productName,

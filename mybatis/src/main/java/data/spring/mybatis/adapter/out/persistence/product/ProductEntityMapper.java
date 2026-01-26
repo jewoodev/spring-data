@@ -1,7 +1,7 @@
-package data.spring.mybatis.adapter.out.persistence;
+package data.spring.mybatis.adapter.out.persistence.product;
 
-import data.spring.mybatis.application.service.command.ProductSearchCommand;
-import data.spring.mybatis.application.service.command.ProductUpdateCommand;
+import data.spring.mybatis.application.service.product.command.ProductSearchCommand;
+import data.spring.mybatis.application.service.product.command.ProductUpdateCommand;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

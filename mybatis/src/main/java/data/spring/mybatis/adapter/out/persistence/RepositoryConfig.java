@@ -1,6 +1,8 @@
 package data.spring.mybatis.adapter.out.persistence;
 
-import data.spring.mybatis.application.required.ProductRepository;
+import data.spring.mybatis.adapter.out.persistence.product.ProductEntityMapper;
+import data.spring.mybatis.adapter.out.persistence.product.ProductPersister;
+import data.spring.mybatis.application.required.product.ProductRepository;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;

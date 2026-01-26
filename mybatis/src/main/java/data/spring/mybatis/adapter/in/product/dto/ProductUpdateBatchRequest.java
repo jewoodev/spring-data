@@ -1,6 +1,6 @@
-package data.spring.mybatis.adapter.in.dto;
+package data.spring.mybatis.adapter.in.product.dto;
 
-import data.spring.mybatis.application.service.command.ProductUpdateCommand;
+import data.spring.mybatis.application.service.product.command.ProductUpdateCommand;
 import jakarta.validation.Valid;
 
 import java.util.List;

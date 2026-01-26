@@ -1,8 +1,8 @@
 package data.spring.mybatis.application;
 
-import data.spring.mybatis.application.required.ProductRepository;
-import data.spring.mybatis.application.required.ProductUseCase;
-import data.spring.mybatis.application.service.ProductService;
+import data.spring.mybatis.application.required.product.ProductRepository;
+import data.spring.mybatis.application.required.product.ProductUseCase;
+import data.spring.mybatis.application.service.product.ProductService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

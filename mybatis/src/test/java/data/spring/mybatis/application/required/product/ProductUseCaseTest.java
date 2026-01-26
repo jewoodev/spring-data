@@ -1,9 +1,9 @@
-package data.spring.mybatis.application.required;
+package data.spring.mybatis.application.required.product;
 
 import data.spring.mybatis.IntegrationTestSupport;
-import data.spring.mybatis.application.service.command.ProductSearchCommand;
-import data.spring.mybatis.application.service.command.ProductUpdateCommand;
-import data.spring.mybatis.domain.Product;
+import data.spring.mybatis.application.service.product.command.ProductSearchCommand;
+import data.spring.mybatis.application.service.product.command.ProductUpdateCommand;
+import data.spring.mybatis.domain.product.Product;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 

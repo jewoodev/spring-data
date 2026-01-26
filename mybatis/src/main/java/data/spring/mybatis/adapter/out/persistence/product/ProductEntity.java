@@ -1,6 +1,6 @@
-package data.spring.mybatis.adapter.out.persistence;
+package data.spring.mybatis.adapter.out.persistence.product;
 
-import data.spring.mybatis.domain.Product;
+import data.spring.mybatis.domain.product.Product;
 
 public class ProductEntity {
     private Long productId;

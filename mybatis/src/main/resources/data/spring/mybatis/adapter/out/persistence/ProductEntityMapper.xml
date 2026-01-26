@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="data.spring.mybatis.adapter.out.persistence.ProductEntityMapper">
+<mapper namespace="data.spring.mybatis.adapter.out.persistence.product.ProductEntityMapper">
     <insert id="save" useGeneratedKeys="true" keyProperty="productId">
         insert into product (product_name, price, quantity)
         values (#{productName}, #{price}, #{quantity})

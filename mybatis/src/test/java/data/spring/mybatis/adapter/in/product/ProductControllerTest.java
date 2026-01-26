@@ -1,4 +1,4 @@
-package data.spring.mybatis.adapter.in;
+package data.spring.mybatis.adapter.in.product;
 
 import data.spring.mybatis.ControllerTestSupport;
 import org.junit.jupiter.api.Test;

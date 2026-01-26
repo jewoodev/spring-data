@@ -1,4 +1,4 @@
-package data.spring.mybatis.adapter.in.dto;
+package data.spring.mybatis.adapter.in.product.dto;
 
 public record ProductSearchRequest(
         String productName,
