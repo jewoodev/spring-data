@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Mapper
-public interface ProductMapper {
+public interface ProductEntityMapper {
     void save(ProductEntity entity);
 
     int saveAll(List<ProductEntity> entities);

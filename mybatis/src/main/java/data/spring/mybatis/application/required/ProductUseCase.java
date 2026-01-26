@@ -8,9 +8,15 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProductUseCase {
-    List<Product> findAll(ProductSearchCommand searchCommand);
-    void save(Product product);
-    int saveAll(List<Product> products);
     Optional<Product> findById(Long productId);
+
+    List<Product> findAll(ProductSearchCommand searchCommand);
+
+    void save(Product product);
+
+    int saveAll(List<Product> products);
+
+    void update(ProductUpdateCommand updateCommand);
+
     int updateAll(List<ProductUpdateCommand> updateBatchRequest);
 }

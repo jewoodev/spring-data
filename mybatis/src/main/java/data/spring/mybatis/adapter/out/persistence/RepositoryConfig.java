@@ -49,7 +49,7 @@ public class RepositoryConfig {
     }
 
     @Bean
-    public ProductRepository productRepository(ProductMapper productMapper) {
-        return new ProductPersister(productMapper);
+    public ProductRepository productRepository(ProductEntityMapper productEntityMapper) {
+        return new ProductPersister(productEntityMapper);
     }
 }

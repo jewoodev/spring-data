@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="data.spring.mybatis.adapter.out.persistence.ProductMapper">
+<mapper namespace="data.spring.mybatis.adapter.out.persistence.ProductEntityMapper">
     <insert id="save" useGeneratedKeys="true" keyProperty="productId">
         insert into product (product_name, price, quantity)
         values (#{productName}, #{price}, #{quantity})
@@ -15,16 +15,6 @@
             (#{entity.productName}, #{entity.price}, #{entity.quantity})
         </foreach>
     </insert>
-
-    <update id="update">
-        update product
-        <set>
-            <if test="productName != null">product_name = #{productName},</if>
-            <if test="price != null">price = #{price},</if>
-            <if test="quantity != null">quantity = #{quantity},</if>
-        </set>
-        where product_id = #{productId}
-    </update>
 
     <select id="findById" resultType="ProductEntity">
         select product_id, product_name, price, quantity
@@ -44,6 +34,16 @@
             </if>
         </where>
     </select>
+
+    <update id="update">
+        update product
+        <set>
+            <if test="productName != null">product_name = #{productName},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="quantity != null">quantity = #{quantity},</if>
+        </set>
+        where product_id = #{productId}
+    </update>
 
     <delete id="deleteAll">
         truncate table product restart identity

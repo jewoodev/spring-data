@@ -9,39 +9,39 @@ import java.util.List;
 import java.util.Optional;
 
 public class ProductPersister implements ProductRepository {
-    private final ProductMapper productMapper;
+    private final ProductEntityMapper productEntityMapper;
 
-    public ProductPersister(ProductMapper productMapper) {
-        this.productMapper = productMapper;
+    public ProductPersister(ProductEntityMapper productEntityMapper) {
+        this.productEntityMapper = productEntityMapper;
     }
 
     @Override
-    public void save(Product entity) {
-        this.productMapper.save(ProductEntity.fromDomain(entity));
+    public void save(Product product) {
+        this.productEntityMapper.save(ProductEntity.fromDomain(product));
     }
 
     @Override
-    public int saveAll(List<Product> entities) {
-        return this.productMapper.saveAll(entities.stream().map(ProductEntity::fromDomain).toList());
+    public int saveAll(List<Product> products) {
+        return this.productEntityMapper.saveAll(products.stream().map(ProductEntity::fromDomain).toList());
     }
 
     @Override
     public void update(ProductUpdateCommand updateCommand) {
-        this.productMapper.update(updateCommand);
+        this.productEntityMapper.update(updateCommand);
     }
 
     @Override
     public Optional<Product> findById(Long productId) {
-        return this.productMapper.findById(productId).map(ProductEntity::toDomain);
+        return this.productEntityMapper.findById(productId).map(ProductEntity::toDomain);
     }
 
     @Override
     public List<Product> findAll(ProductSearchCommand searchCond) {
-        return this.productMapper.findAll(searchCond).stream().map(ProductEntity::toDomain).toList();
+        return this.productEntityMapper.findAll(searchCond).stream().map(ProductEntity::toDomain).toList();
     }
 
     @Override
     public int deleteAll() {
-        return this.productMapper.deleteAll();
+        return this.productEntityMapper.deleteAll();
     }
 }

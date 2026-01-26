@@ -8,7 +8,7 @@ public class ProductEntity {
     private int price;
     private int quantity;
 
-    public ProductEntity() {
+    protected ProductEntity() {
     }
 
     private ProductEntity(String productName, int price, int quantity) {

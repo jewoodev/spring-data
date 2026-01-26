@@ -1,6 +1,6 @@
 package data.spring.mybatis;
 
-import data.spring.mybatis.adapter.out.persistence.ProductMapper;
+import data.spring.mybatis.adapter.out.persistence.ProductEntityMapper;
 import data.spring.mybatis.adapter.out.persistence.ProductPersister;
 import data.spring.mybatis.application.required.ProductRepository;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -52,7 +52,7 @@ public class RepositoryTestConfig {
     }
 
     @Bean
-    public ProductRepository productRepository(ProductMapper productMapper) {
-        return new ProductPersister(productMapper);
+    public ProductRepository productRepository(ProductEntityMapper productEntityMapper) {
+        return new ProductPersister(productEntityMapper);
     }
 }

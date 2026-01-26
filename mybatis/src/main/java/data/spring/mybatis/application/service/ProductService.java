@@ -18,6 +18,11 @@ public class ProductService implements ProductUseCase {
     }
 
     @Override
+    public Optional<Product> findById(Long productId) {
+        return this.productRepository.findById(productId);
+    }
+
+    @Override
     public List<Product> findAll(ProductSearchCommand searchCommand) {
         return this.productRepository.findAll(searchCommand);
     }
@@ -34,8 +39,8 @@ public class ProductService implements ProductUseCase {
     }
 
     @Override
-    public Optional<Product> findById(Long productId) {
-        return this.productRepository.findById(productId);
+    public void update(ProductUpdateCommand updateCommand) {
+        this.productRepository.update(updateCommand);
     }
 
     @Transactional
