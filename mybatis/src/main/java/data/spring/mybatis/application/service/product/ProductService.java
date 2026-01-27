@@ -1,7 +1,7 @@
 package data.spring.mybatis.application.service.product;
 
 import data.spring.mybatis.application.required.product.ProductRepository;
-import data.spring.mybatis.application.required.product.ProductUseCase;
+import data.spring.mybatis.application.provided.product.ProductUseCase;
 import data.spring.mybatis.application.service.product.command.ProductSearchCommand;
 import data.spring.mybatis.application.service.product.command.ProductUpdateCommand;
 import data.spring.mybatis.domain.product.Product;

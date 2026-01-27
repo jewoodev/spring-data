@@ -1,7 +1,7 @@
 package data.spring.mybatis.adapter.in.product;
 
 import data.spring.mybatis.adapter.in.product.dto.ProductUpdateBatchRequest;
-import data.spring.mybatis.application.required.product.ProductUseCase;
+import data.spring.mybatis.application.provided.product.ProductUseCase;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 

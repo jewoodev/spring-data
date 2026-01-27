@@ -1,4 +1,4 @@
-package data.spring.mybatis.application.required.product;
+package data.spring.mybatis.application.provided.product;
 
 import data.spring.mybatis.IntegrationTestSupport;
 import data.spring.mybatis.application.service.product.command.ProductSearchCommand;

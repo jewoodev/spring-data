@@ -1,7 +1,7 @@
 package data.spring.mybatis;
 
 import data.spring.mybatis.adapter.in.product.ProductController;
-import data.spring.mybatis.application.required.product.ProductUseCase;
+import data.spring.mybatis.application.provided.product.ProductUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;

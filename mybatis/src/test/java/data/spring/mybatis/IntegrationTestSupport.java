@@ -1,7 +1,7 @@
 package data.spring.mybatis;
 
 import data.spring.mybatis.application.required.product.ProductRepository;
-import data.spring.mybatis.application.required.product.ProductUseCase;
+import data.spring.mybatis.application.provided.product.ProductUseCase;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
