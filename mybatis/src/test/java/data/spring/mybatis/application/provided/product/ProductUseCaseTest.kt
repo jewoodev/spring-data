@@ -3,13 +3,12 @@ package data.spring.mybatis.application.provided.product
 import data.spring.mybatis.IntegrationTestSupport
 import data.spring.mybatis.application.service.product.command.ProductSearchCommand
 import data.spring.mybatis.application.service.product.command.ProductUpdateCommand
-import data.spring.mybatis.application.service.product.exception.NoDataFoundException
+import data.spring.mybatis.application.exception.NoDataFoundException
 import data.spring.mybatis.domain.product.Product
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
-import org.springframework.util.Assert.isInstanceOf
 
 class ProductUseCaseTest: IntegrationTestSupport() {
     @AfterEach
