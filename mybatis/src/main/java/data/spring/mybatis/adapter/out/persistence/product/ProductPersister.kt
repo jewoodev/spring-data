@@ -9,30 +9,23 @@ import java.util.*
 class ProductPersister(
     val productEntityMapper: ProductEntityMapper
 ): ProductRepository {
-    override fun save(product: Product) {
-        this.productEntityMapper.save(ProductEntity.fromDomain(product))
-    }
+    override fun save(product: Product)
+        = this.productEntityMapper.save(ProductEntity.fromDomain(product))
 
-    override fun saveAll(products: List<Product>): Int {
-        return this.productEntityMapper.saveAll(
-            products.stream().map(ProductEntity::fromDomain).toList()
-        )
-    }
+    override fun saveAll(products: List<Product>): Int
+        = this.productEntityMapper.saveAll(
+            products.map(ProductEntity::fromDomain))
 
-    override fun update(updateCommand: ProductUpdateCommand) {
-        this.productEntityMapper.update(updateCommand)
-    }
+    override fun update(updateCommand: ProductUpdateCommand)
+        = this.productEntityMapper.update(updateCommand)
 
-    override fun findById(productId: Long): Optional<Product> {
-        return this.productEntityMapper.findById(productId).map(ProductEntity::toDomain)
-    }
+    override fun findById(productId: Long): Product?
+        = this.productEntityMapper.findById(productId)?.toDomain()
 
-    override fun findAll(searchCommand: ProductSearchCommand): List<Product> {
-        return this.productEntityMapper.findAll(searchCommand).stream()
-            .map(ProductEntity::toDomain).toList()
-    }
+    override fun findAll(searchCommand: ProductSearchCommand): List<Product>
+        = this.productEntityMapper.findAll(searchCommand)
+            .map(ProductEntity::toDomain)
 
-    override fun deleteAll(): Int {
-        return this.productEntityMapper.deleteAll()
-    }
+    override fun deleteAll(): Int
+        = this.productEntityMapper.deleteAll()
 }

@@ -6,7 +6,7 @@ import data.spring.mybatis.domain.product.Product
 import java.util.*
 
 interface ProductUseCase {
-    fun findById(productId: Long): Optional<Product>
+    fun findById(productId: Long): Product?
 
     fun findAll(searchCommand: ProductSearchCommand): List<Product>
 

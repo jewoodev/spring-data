@@ -1,13 +1,15 @@
 package data.spring.mybatis.application.provided.product
 
 import data.spring.mybatis.IntegrationTestSupport
-import data.spring.mybatis.adapter.out.persistence.product.ProductEntity
 import data.spring.mybatis.application.service.product.command.ProductSearchCommand
 import data.spring.mybatis.application.service.product.command.ProductUpdateCommand
+import data.spring.mybatis.application.service.product.exception.NoDataFoundException
 import data.spring.mybatis.domain.product.Product
-import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
+import org.springframework.util.Assert.isInstanceOf
 
 class ProductUseCaseTest: IntegrationTestSupport() {
     @AfterEach
@@ -22,7 +24,6 @@ class ProductUseCaseTest: IntegrationTestSupport() {
             Product(productName = "상품2", price = 30000, quantity = 20),
             Product(productName = "상품3", price = 40000, quantity = 30)
         )
-
         val sut = super.productUseCase
         sut.saveAll(products)
         val expected = listOf(
@@ -33,20 +34,19 @@ class ProductUseCaseTest: IntegrationTestSupport() {
 
         val savedProducts = sut.findAll(ProductSearchCommand(null, null))
 
-        Assertions.assertThat(savedProducts).isEqualTo(expected)
+        assertThat(savedProducts).isEqualTo(expected)
     }
 
     @Test
     fun findProductSuccessfully() {
         val product = Product(productName = "리얼 마이바티스", price = 30000, quantity = 100)
-        println(product.productName)
-        val sut: ProductUseCase = super.productUseCase
+        val sut = super.productUseCase
         sut.save(product)
         val expected = Product(1L, "리얼 마이바티스", 30000, 100)
 
-        val savedProduct = sut.findById(1L).get()
+        val savedProduct = sut.findById(1L)
 
-        Assertions.assertThat(savedProduct).isEqualTo(expected)
+        assertThat(savedProduct).isEqualTo(expected)
     }
 
     @Test
@@ -60,8 +60,8 @@ class ProductUseCaseTest: IntegrationTestSupport() {
         sut.saveAll(products)
 
         val savedProducts = sut.findAll(ProductSearchCommand(productName = null, maxPrice = 30000))
-        Assertions.assertThat(savedProducts).hasSize(2)
-        Assertions.assertThat(savedProducts).extracting("productName").contains("리얼 마이바티스", "리얼 제이디비씨")
+        assertThat(savedProducts).hasSize(2)
+        assertThat(savedProducts).extracting("productName").contains("리얼 마이바티스", "리얼 제이디비씨")
     }
 
     @Test
@@ -82,10 +82,27 @@ class ProductUseCaseTest: IntegrationTestSupport() {
         val sut = super.productUseCase
 
         // when
-        sut.updateAll(updateCommands)
+        val updateCnt = sut.updateAll(updateCommands)
 
         // then
         val savedProducts = super.productRepository.findAll(ProductSearchCommand(productName = null, maxPrice = null))
-        Assertions.assertThat(savedProducts).extracting("productName").containsExactly("상품4", "상품5", "상품6")
+        assertThat(updateCnt).isEqualTo(3)
+        assertThat(savedProducts).extracting("productName").containsExactly("상품4", "상품5", "상품6")
+    }
+
+    @Test
+    fun findWhenNoProduct() {
+        val sut = super.productUseCase
+
+        assertThatThrownBy { sut.findById(1L) }
+                .isInstanceOf(NoDataFoundException::class.java);
+    }
+
+    @Test
+    fun findAllWhenNoProduct() {
+        val sut = super.productUseCase
+
+        assertThatThrownBy { sut.findAll(ProductSearchCommand(productName = null, maxPrice = null)) }
+            .isInstanceOf(NoDataFoundException::class.java)
     }
 }

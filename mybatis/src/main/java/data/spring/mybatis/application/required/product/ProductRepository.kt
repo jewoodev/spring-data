@@ -12,7 +12,7 @@ interface ProductRepository {
 
     fun update(updateCommand: ProductUpdateCommand)
 
-    fun findById(productId: Long): Optional<Product>
+    fun findById(productId: Long): Product?
 
     fun findAll(searchCommand: ProductSearchCommand): List<Product>
 

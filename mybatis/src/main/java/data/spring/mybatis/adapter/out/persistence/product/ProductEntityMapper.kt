@@ -13,7 +13,7 @@ interface ProductEntityMapper {
 
     fun update(updateCommand: ProductUpdateCommand)
 
-    fun findById(productId: Long): Optional<ProductEntity>
+    fun findById(productId: Long): ProductEntity?
 
     fun findAll(searchCond: ProductSearchCommand): List<ProductEntity>
 
