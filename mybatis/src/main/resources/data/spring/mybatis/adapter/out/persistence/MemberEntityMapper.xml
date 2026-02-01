@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.spring.mybatis.adapter.out.persistence.member.MemberEntityMapper">
+    <insert id="save" useGeneratedKeys="true" keyProperty="memberId">
+        insert into member (username, password, email, role, created_at, updated_at, left_at)
+        values (#{username}, #{password}, #{email}, #{role}, #{createdAt}, #{updatedAt}, #{leftAt})
+    </insert>
+
+    <insert id="saveAll" useGeneratedKeys="true" keyProperty="memberId">
+        insert into member (username, password, email, role, created_at, updated_at, left_at)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.username}, #{entity.password}, #{entity.email}, #{entity.role}, #{entity.createdAt}, #{entity.updatedAt}, #{entity.leftAt})
+        </foreach>
+    </insert>
+
+    <select id="findById" resultType="MemberEntity">
+        select *
+        from member
+        where member_id = #{memberId}
+    </select>
+
+    <select id="findByUsername" resultType="MemberEntity">
+        select *
+        from member
+        where username = #{username}
+    </select>
+
+    <select id="findByEmail" resultType="MemberEntity">
+        select *
+        from member
+        where email = #{emailAddr}
+    </select>
+
+    <select id="findDuplicated" resultType="MemberEntity">
+        select *
+        from member
+        where username = #{username} or email = #{emailAddr}
+    </select>
+
+    <select id="findAll" resultType="MemberEntity">
+        select * from member
+    </select>
+
+    <update id="update">
+        update member
+        <set>
+            <if test="password != null">password = #{password},</if>
+            <if test="role.name() != 'UNVERIFIED'">role = #{role},</if>
+            <if test="password != null or role.name() != 'UNVERIFIED'">updated_at = #{updatedAt},</if>
+        </set>
+        where member_id = #{memberId}
+    </update>
+
+    <update id="leave">
+        update member
+        set left_at = #{leftAt}
+        where member_id = #{memberId}
+    </update>
+
+    <delete id="deleteAll">
+        truncate table member restart identity
+    </delete>
+</mapper>
