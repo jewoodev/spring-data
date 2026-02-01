@@ -1,7 +1,5 @@
-package data.spring.mybatis.adapter.`in`.member.request
+package data.spring.mybatis.domain.member.request
 
-import data.spring.mybatis.domain.member.Member
-import data.spring.mybatis.domain.member.Role.UNVERIFIED
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
@@ -18,12 +16,4 @@ data class MemberCreateRequest(
     @field:Email
     val email: String
 ) {
-    fun toDomain(): Member {
-        return Member(
-            username = username,
-            password = password,
-            email = email,
-            role = UNVERIFIED
-        )
-    }
 }
