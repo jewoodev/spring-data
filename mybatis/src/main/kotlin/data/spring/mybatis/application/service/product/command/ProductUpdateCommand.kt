@@ -1,6 +1,6 @@
 package data.spring.mybatis.application.service.product.command
 
-import data.spring.mybatis.adapter.out.persistence.clock
+import data.spring.mybatis.domain.clock
 import java.time.LocalDateTime
 
 class ProductUpdateCommand(

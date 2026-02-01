@@ -1,4 +1,4 @@
-package data.spring.mybatis.adapter.`in`.product.dto
+package data.spring.mybatis.adapter.`in`.product.request
 
 import jakarta.validation.constraints.AssertFalse
 import jakarta.validation.constraints.NotNull

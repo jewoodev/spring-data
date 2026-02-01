@@ -1,10 +1,10 @@
 package data.spring.mybatis.application.service.product
 
+import data.spring.mybatis.application.exception.NoDataFoundException
 import data.spring.mybatis.application.provided.product.ProductUseCase
+import data.spring.mybatis.application.required.product.ProductRepository
 import data.spring.mybatis.application.service.product.command.ProductSearchCommand
 import data.spring.mybatis.application.service.product.command.ProductUpdateCommand
-import data.spring.mybatis.application.exception.NoDataFoundException
-import data.spring.mybatis.application.required.product.ProductRepository
 import data.spring.mybatis.domain.product.Product
 import org.springframework.transaction.annotation.Transactional
 
@@ -26,6 +26,10 @@ open class ProductService(
 
     override fun saveAll(products: List<Product>): Int {
         return this.productRepository.saveAll(products)
+    }
+
+    override fun deleteAll(): Int {
+        return this.productRepository.deleteAll()
     }
 
     @Transactional
