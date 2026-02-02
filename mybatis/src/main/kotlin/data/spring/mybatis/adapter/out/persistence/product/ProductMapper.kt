@@ -1,16 +1,20 @@
-package data.spring.mybatis.application.required.product
+package data.spring.mybatis.adapter.out.persistence.product
 
 import data.spring.mybatis.application.service.product.command.ProductSearchCommand
 import data.spring.mybatis.domain.product.Product
+import org.apache.ibatis.annotations.Mapper
 
-interface ProductRepository {
+@Mapper
+interface ProductMapper {
     fun save(product: Product)
+
     fun saveAll(products: List<Product>): Int
 
-    fun findById(productId: Long): Product?
-    fun findWithCond(searchCommand: ProductSearchCommand): List<Product>
+    fun update(product: Product): Int
 
-    fun update(products: List<Product>): Int
+    fun findById(productId: Long): Product?
+
+    fun findWithCond(searchCommand: ProductSearchCommand): List<Product>
 
     fun deleteAll(): Int
 }

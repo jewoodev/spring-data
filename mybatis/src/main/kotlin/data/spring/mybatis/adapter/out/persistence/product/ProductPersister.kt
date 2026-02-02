@@ -2,35 +2,35 @@ package data.spring.mybatis.adapter.out.persistence.product
 
 import data.spring.mybatis.application.required.product.ProductRepository
 import data.spring.mybatis.application.service.product.command.ProductSearchCommand
-import data.spring.mybatis.application.service.product.command.ProductUpdateCommand
 import data.spring.mybatis.domain.product.Product
 
 class ProductPersister(
-    val productEntityMapper: ProductEntityMapper,
+    val productMapper: ProductMapper,
 ): ProductRepository {
     override fun save(product: Product) {
-        this.productEntityMapper.save(ProductEntity.fromDomain(product))
+        this.productMapper.save(product)
     }
 
     override fun saveAll(products: List<Product>): Int {
-        return this.productEntityMapper.saveAll(products.map(ProductEntity::fromDomain))
+        return this.productMapper.saveAll(products)
     }
 
     override fun findById(productId: Long): Product? {
-        return this.productEntityMapper.findById(productId)?.toDomain()
+        return this.productMapper.findById(productId)
     }
 
     override fun findWithCond(searchCommand: ProductSearchCommand): List<Product> {
-        return this.productEntityMapper.findWithCond(searchCommand)
-            .map(ProductEntity::toDomain)
+        return this.productMapper.findWithCond(searchCommand)
     }
 
-    override fun update(updateCommands: List<ProductUpdateCommand>) {
-        return updateCommands.filter { it.isUpdated() }
-            .forEach { this.productEntityMapper.update(it.whenUpdated()) }
+    override fun update(products: List<Product>): Int {
+        var cnt = 0
+        products.filter { it.isUpdated() }
+            .forEach { cnt += this.productMapper.update(it) }
+        return cnt
     }
 
     override fun deleteAll(): Int {
-        return this.productEntityMapper.deleteAll()
+        return this.productMapper.deleteAll()
     }
 }

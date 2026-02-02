@@ -4,8 +4,8 @@ import data.spring.mybatis.application.exception.NoDataFoundException
 import data.spring.mybatis.application.provided.product.ProductUseCase
 import data.spring.mybatis.application.required.product.ProductRepository
 import data.spring.mybatis.application.service.product.command.ProductSearchCommand
-import data.spring.mybatis.application.service.product.command.ProductUpdateCommand
 import data.spring.mybatis.domain.product.Product
+import data.spring.mybatis.domain.product.request.ProductUpdateCommand
 import org.springframework.transaction.annotation.Transactional
 
 open class ProductService(
@@ -33,7 +33,9 @@ open class ProductService(
     }
 
     @Transactional
-    override fun updateList(updateCommands: List<ProductUpdateCommand>) {
-        productRepository.update(updateCommands)
+    override fun update(updateCommands: List<ProductUpdateCommand>): Int {
+        return updateCommands.map {
+            Product.updateAll(it)
+        }.let { this.productRepository.update(it) }
     }
 }

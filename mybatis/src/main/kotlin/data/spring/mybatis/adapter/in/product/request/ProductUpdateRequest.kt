@@ -1,5 +1,6 @@
 package data.spring.mybatis.adapter.`in`.product.request
 
+import data.spring.mybatis.domain.product.request.ProductUpdateCommand
 import jakarta.validation.constraints.AssertFalse
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
@@ -14,12 +15,16 @@ data class ProductUpdateRequest(
     val price: Int?,
     val quantity: Int?
 ) {
-    companion object {
-        fun of(productId: Long, productName: String, price: Int, quantity: Int): ProductUpdateRequest
-            = ProductUpdateRequest(productId, productName, price, quantity)
-    }
-
     @AssertFalse(message = "수정할 정보가 없습니다.")
     fun isEmpty(): Boolean
         = productName == null && price == null && quantity == null
+
+    fun toCommand(): ProductUpdateCommand {
+        return ProductUpdateCommand(
+            productId = productId,
+            productName = productName,
+            price = price,
+            quantity = quantity
+        )
+    }
 }
