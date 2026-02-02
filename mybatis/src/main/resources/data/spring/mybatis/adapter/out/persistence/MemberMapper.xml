@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="data.spring.mybatis.adapter.out.persistence.member.MemberEntityMapper">
+<mapper namespace="data.spring.mybatis.adapter.out.persistence.member.MemberMapper">
     <insert id="save" useGeneratedKeys="true" keyProperty="memberId">
         insert into member (username, password, email, role, created_at, updated_at, left_at)
         values (#{username}, #{password}, #{email}, #{role}, #{createdAt}, #{updatedAt}, #{leftAt})
@@ -11,36 +11,36 @@
     <insert id="saveAll" useGeneratedKeys="true" keyProperty="memberId">
         insert into member (username, password, email, role, created_at, updated_at, left_at)
         values
-        <foreach collection="entities" item="entity" separator=",">
-            (#{entity.username}, #{entity.password}, #{entity.email}, #{entity.role}, #{entity.createdAt}, #{entity.updatedAt}, #{entity.leftAt})
+        <foreach collection="members" item="member" separator=",">
+            (#{member.username}, #{member.password}, #{member.email}, #{member.role}, #{member.createdAt}, #{member.updatedAt}, #{member.leftAt})
         </foreach>
     </insert>
 
-    <select id="findById" resultType="MemberEntity">
+    <select id="findById" resultType="Member">
         select *
         from member
         where member_id = #{memberId}
     </select>
 
-    <select id="findByUsername" resultType="MemberEntity">
+    <select id="findByUsername" resultType="Member">
         select *
         from member
         where username = #{username}
     </select>
 
-    <select id="findByEmail" resultType="MemberEntity">
+    <select id="findByEmail" resultType="Member">
         select *
         from member
         where email = #{emailAddr}
     </select>
 
-    <select id="findDuplicated" resultType="MemberEntity">
+    <select id="findDuplicated" resultType="Member">
         select *
         from member
         where username = #{username} or email = #{emailAddr}
     </select>
 
-    <select id="findAll" resultType="MemberEntity">
+    <select id="findAll" resultType="Member">
         select * from member
     </select>
 

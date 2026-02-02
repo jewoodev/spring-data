@@ -1,49 +1,48 @@
 package data.spring.mybatis.adapter.out.persistence.member
 
-import data.spring.mybatis.adapter.out.persistence.member.entity.MemberEntity
 import data.spring.mybatis.application.required.member.MemberRepository
 import data.spring.mybatis.domain.member.Member
 
 class MemberPersister(
-    val memberEntityMapper: MemberEntityMapper
+    val memberMapper: MemberMapper
 ) : MemberRepository {
     override fun save(member: Member) {
-         this.memberEntityMapper.save(MemberEntity.fromDomain(member))
+         this.memberMapper.save(member)
     }
 
     override fun saveAll(members: List<Member>): Int {
-        return this.memberEntityMapper.saveAll(members.map(MemberEntity::fromDomain))
+        return this.memberMapper.saveAll(members)
     }
 
     override fun findById(memberId: Long): Member? {
-        return this.memberEntityMapper.findById(memberId)?.toDomain()
+        return this.memberMapper.findById(memberId)
     }
 
     override fun findByUsername(username: String): Member? {
-        return this.memberEntityMapper.findByUsername(username)?.toDomain()
+        return this.memberMapper.findByUsername(username)
     }
 
     override fun findByEmail(emailAddr: String): Member? {
-        return this.memberEntityMapper.findByEmail(emailAddr)?.toDomain()
+        return this.memberMapper.findByEmail(emailAddr)
     }
 
     override fun findDuplicated(username: String, emailAddr: String): Member? {
-        return this.memberEntityMapper.findDuplicated(username, emailAddr)?.toDomain()
+        return this.memberMapper.findDuplicated(username, emailAddr)
     }
 
     override fun findAll(): List<Member> {
-        return this.memberEntityMapper.findAll().map { it.toDomain() }
+        return this.memberMapper.findAll()
     }
 
     override fun update(member: Member) {
-        return this.memberEntityMapper.update(MemberEntity.fromDomain(member))
+        return this.memberMapper.update(member)
     }
 
     override fun leave(member: Member) {
-        this.memberEntityMapper.leave(MemberEntity.fromDomain(member))
+        this.memberMapper.leave(member)
     }
 
     override fun deleteAll(): Int {
-        return this.memberEntityMapper.deleteAll()
+        return this.memberMapper.deleteAll()
     }
 }

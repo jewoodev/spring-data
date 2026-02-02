@@ -33,7 +33,7 @@ class DataAccessConfig {
                 .getResources("classpath*:data/spring/mybatis/adapter/out/persistence/*.xml")
         )
 
-        factoryBean.setTypeAliasesPackage("data.spring.mybatis.adapter.out.persistence")
+        factoryBean.setTypeAliasesPackage("data.spring.mybatis.domain")
 
         val conf = org.apache.ibatis.session.Configuration()
         conf.isMapUnderscoreToCamelCase = true
