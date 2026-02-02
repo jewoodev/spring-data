@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="data.spring.mybatis.adapter.out.persistence.product.ProductEntityMapper">
+<mapper namespace="data.spring.mybatis.adapter.out.persistence.product.ProductMapper">
     <insert id="save" useGeneratedKeys="true" keyProperty="productId">
         insert into product (product_name, price, quantity, created_at, updated_at)
         values (#{productName}, #{price}, #{quantity}, #{createdAt}, #{updatedAt})
@@ -11,19 +11,19 @@
     <insert id="saveAll" useGeneratedKeys="true" keyProperty="productId">
         insert into product (product_name, price, quantity, created_at, updated_at)
         values
-        <foreach collection="entities" item="entity" separator=",">
-            (#{entity.productName}, #{entity.price}, #{entity.quantity}, #{entity.createdAt}, #{entity.updatedAt})
+        <foreach collection="products" item="product" separator=",">
+            (#{product.productName}, #{product.price}, #{product.quantity}, #{product.createdAt}, #{product.updatedAt})
         </foreach>
     </insert>
 
-    <select id="findById" resultType="ProductEntity">
-        select product_id, product_name, price, quantity
+    <select id="findById" resultType="Product">
+        select *
         from product
         where product_id = #{productId}
     </select>
 
-    <select id="findWithCond" resultType="ProductEntity">
-        select product_id, product_name, price, quantity
+    <select id="findWithCond" resultType="Product">
+        select *
         from product
         <where>
             <if test="productName != null and productName != ''">

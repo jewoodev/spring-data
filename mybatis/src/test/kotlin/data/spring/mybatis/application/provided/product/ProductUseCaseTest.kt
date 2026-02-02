@@ -5,12 +5,16 @@ import data.spring.mybatis.application.exception.NoDataFoundException
 import data.spring.mybatis.application.service.product.command.ProductSearchCommand
 import data.spring.mybatis.application.service.product.command.ProductUpdateCommand
 import data.spring.mybatis.domain.product.Product
+import data.spring.mybatis.domain.testClock
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
+import java.time.LocalDateTime
 
 class ProductUseCaseTest: IntegrationTestSupport() {
+    val now = LocalDateTime.now(testClock())
+
     @AfterEach
     fun tearDown() {
         super.productUseCase.deleteAll()
@@ -20,15 +24,15 @@ class ProductUseCaseTest: IntegrationTestSupport() {
     fun saveProductsSuccessfully() {
         val sut = super.productUseCase
         val products = listOf(
-            Product(productName = "상품1", price = 20000, quantity = 10),
-            Product(productName = "상품2", price = 30000, quantity = 20),
-            Product(productName = "상품3", price = 40000, quantity = 30)
+            Product(productName = "상품1", price = 20000, quantity = 10, createdAt = now, updatedAt = now),
+            Product(productName = "상품2", price = 30000, quantity = 20, createdAt = now, updatedAt = now),
+            Product(productName = "상품3", price = 40000, quantity = 30, createdAt = now, updatedAt = now)
         )
         sut.saveAll(products)
         val expected = listOf(
-            Product(1L, "상품1", 20000, 10),
-            Product(2L, "상품2", 30000, 20),
-            Product(3L, "상품3", 40000, 30)
+            Product(1L, "상품1", 20000, 10, createdAt = now, updatedAt = now),
+            Product(2L, "상품2", 30000, 20, createdAt = now, updatedAt = now),
+            Product(3L, "상품3", 40000, 30, createdAt = now, updatedAt = now)
         )
 
         val savedProducts = sut.findWithCond(ProductSearchCommand(null, null))
@@ -39,9 +43,10 @@ class ProductUseCaseTest: IntegrationTestSupport() {
     @Test
     fun findProductSuccessfully() {
         val sut = super.productUseCase
-        val product = Product(productName = "리얼 마이바티스", price = 30000, quantity = 100)
+        val product = Product(productName = "리얼 마이바티스", price = 30000, quantity = 100, createdAt = now, updatedAt = now)
         sut.save(product)
-        val expected = Product(1L, "리얼 마이바티스", 30000, 100)
+        val expected = Product(productId = 1L, productName = "리얼 마이바티스", price = 30000, quantity = 100,
+            createdAt = now, updatedAt = now)
 
         val savedProduct = sut.findById(1L)
 
