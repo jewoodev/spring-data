@@ -20,8 +20,8 @@ data class Member constructor(
         fun register(
             createRequest: MemberCreateRequest, passwordEncoder: PasswordEncoder
         ): Member {
-            val encodedPassword = passwordEncoder.encode(createRequest.password)
-            return Member(username = createRequest.username, password = encodedPassword, email = createRequest.email)
+            return passwordEncoder.encode(createRequest.password)
+                .let { Member(username = createRequest.username, password = it, email = createRequest.email) }
         }
     }
 
