@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 
 @Configuration
-@Import(DataAccessTestConfig::class, RepositoryTestConfig::class,
-    ApplicationConfig::class,
-    MemberAdapterConfig::class, EmailConfig::class)
+@Import(RepositoryTestConfig::class, // data access
+    ApplicationConfig::class, // application
+    MemberAdapterConfig::class, EmailConfig::class) // adapter
 class IntegrationTestConfig {
 }
