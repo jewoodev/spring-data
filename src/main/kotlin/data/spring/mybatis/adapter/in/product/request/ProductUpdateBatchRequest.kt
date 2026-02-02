@@ -8,8 +8,8 @@ data class ProductUpdateBatchRequest(
     val updateRequests: List<ProductUpdateRequest>
 ) {
     fun toCommands(): List<ProductUpdateCommand> {
-        return this.updateRequests.stream()
-            .map { it ->
+        return this.updateRequests
+            .map {
                 ProductUpdateCommand(
                     productId = it.productId,
                     productName = it.productName,
@@ -17,6 +17,5 @@ data class ProductUpdateBatchRequest(
                     quantity = it.quantity
                 )
             }
-            .toList()
     }
 }
