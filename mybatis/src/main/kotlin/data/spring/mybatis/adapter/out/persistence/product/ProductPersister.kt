@@ -2,7 +2,6 @@ package data.spring.mybatis.adapter.out.persistence.product
 
 import data.spring.mybatis.application.required.product.ProductRepository
 import data.spring.mybatis.application.service.product.command.ProductSearchCommand
-import data.spring.mybatis.application.service.product.command.ProductUpdateCommand
 import data.spring.mybatis.domain.product.Product
 
 class ProductPersister(
@@ -24,9 +23,11 @@ class ProductPersister(
         return this.productMapper.findWithCond(searchCommand)
     }
 
-    override fun update(updateCommands: List<ProductUpdateCommand>) {
-        return updateCommands.filter { it.isUpdated() }
-            .forEach { this.productMapper.update(it.whenUpdated()) }
+    override fun update(products: List<Product>): Int {
+        var cnt = 0
+        products.filter { it.isUpdated() }
+            .forEach { cnt += this.productMapper.update(it) }
+        return cnt
     }
 
     override fun deleteAll(): Int {

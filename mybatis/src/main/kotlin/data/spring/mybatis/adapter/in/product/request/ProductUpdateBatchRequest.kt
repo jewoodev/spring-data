@@ -1,6 +1,6 @@
 package data.spring.mybatis.adapter.`in`.product.request
 
-import data.spring.mybatis.application.service.product.command.ProductUpdateCommand
+import data.spring.mybatis.domain.product.request.ProductUpdateCommand
 import jakarta.validation.Valid
 
 data class ProductUpdateBatchRequest(
@@ -9,12 +9,12 @@ data class ProductUpdateBatchRequest(
 ) {
     fun toCommands(): List<ProductUpdateCommand> {
         return this.updateRequests.stream()
-            .map { request ->
+            .map { it ->
                 ProductUpdateCommand(
-                    productId = request.productId,
-                    productName = request.productName,
-                    price = request.price,
-                    quantity = request.quantity
+                    productId = it.productId,
+                    productName = it.productName,
+                    price = it.price,
+                    quantity = it.quantity
                 )
             }
             .toList()

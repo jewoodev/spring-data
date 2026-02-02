@@ -3,8 +3,8 @@ package data.spring.mybatis.application.provided.product
 import data.spring.mybatis.IntegrationTestSupport
 import data.spring.mybatis.application.exception.NoDataFoundException
 import data.spring.mybatis.application.service.product.command.ProductSearchCommand
-import data.spring.mybatis.application.service.product.command.ProductUpdateCommand
 import data.spring.mybatis.domain.product.Product
+import data.spring.mybatis.domain.product.request.ProductUpdateCommand
 import data.spring.mybatis.domain.testClock
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
@@ -85,7 +85,7 @@ class ProductUseCaseTest: IntegrationTestSupport() {
         )
 
         // when
-        sut.updateList(updateCommands)
+        sut.update(updateCommands)
 
         // then
         val savedProducts = sut.findWithCond(ProductSearchCommand(productName = null, maxPrice = null))
