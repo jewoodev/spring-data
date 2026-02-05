@@ -2,6 +2,7 @@ package data.spring.mybatis.domain.member
 
 import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -19,28 +20,35 @@ class MemberTest {
 
     @Test
     fun registerSuccessfully() {
-        assertThat(member.password).isEqualTo(passwordEncoder.encode(password))
+        assertThat(
+            passwordEncoder.matches(password, member.password.value)
+        ).isTrue()
         assertThat(member.role).isEqualTo(Role.UNVERIFIED)
     }
 
     @Test
     fun activateSuccessfully() {
-        member.activate()
-        assertThat(member.role).isEqualTo(Role.BUYER)
+        member.activate().let {
+            assertThat(it.role).isEqualTo(Role.BUYER)
+        }
     }
 
     @Test
     fun activateWhenAlreadyActivated() {
-        member.activate()
-        Assertions.assertThatThrownBy { member.activate() }
-            .isInstanceOf(IllegalStateException::class.java)
-            .hasMessage("이미 활성화된 회원입니다.")
+        member.activate().let {
+            assertThatThrownBy { it.activate() }
+                .isInstanceOf(IllegalStateException::class.java)
+                .hasMessage("이미 활성화된 회원입니다.")
+        }
     }
 
     @Test
     fun changePasswordSuccessfully() {
         val newPassword = "newTestPassword"
-        member.changePassword(newPassword, passwordEncoder)
-        assertThat(member.password).isEqualTo(passwordEncoder.encode(newPassword))
+        member.changePassword(newPassword, passwordEncoder).let {
+            assertThat(
+                passwordEncoder.matches(newPassword, it.password.value)
+            ).isTrue()
+        }
     }
 }

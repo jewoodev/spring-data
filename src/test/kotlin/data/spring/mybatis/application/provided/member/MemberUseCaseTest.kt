@@ -4,8 +4,8 @@ import data.spring.mybatis.IntegrationTestSupport
 import data.spring.mybatis.application.provided.member.request.EmailVerifyRequest
 import data.spring.mybatis.domain.member.MemberFixture
 import data.spring.mybatis.domain.member.Role
-import data.spring.mybatis.domain.member.request.MemberCreateRequest
-import data.spring.mybatis.domain.member.request.VfcCodeSendRequest
+import data.spring.mybatis.adapter.`in`.member.request.MemberCreateRequest
+import data.spring.mybatis.adapter.`in`.member.request.VfcCodeSendRequest
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
@@ -24,8 +24,8 @@ class MemberUseCaseTest : IntegrationTestSupport() {
         sut.register(member)
 
         val registeredMember = sut.findById(1L)
-        assertThat(registeredMember!!.username).isEqualTo(member.username)
-        assertThat(registeredMember.email).isEqualTo(member.email)
+        assertThat(registeredMember!!.username.value).isEqualTo(member.username)
+        assertThat(registeredMember.email.value).isEqualTo(member.email)
     }
 
     @Test
@@ -36,7 +36,7 @@ class MemberUseCaseTest : IntegrationTestSupport() {
 
         sut.sendVerificationCode(VfcCodeSendRequest(registered.memberId!!))
 
-        val cachedCode = super.evcCache.getVerificationCode(registered.email)
+        val cachedCode = super.evcCache.getVerificationCode(registered.email.value)
         assertThat(cachedCode).isNotNull
     }
 
@@ -47,12 +47,12 @@ class MemberUseCaseTest : IntegrationTestSupport() {
         val registered = sut.findById(1L)!!
         sut.sendVerificationCode(VfcCodeSendRequest(registered.memberId!!))
         val verifyRequest = EmailVerifyRequest(
-            registered.memberId, super.evcCache.getVerificationCode(registered.email)!!
+            registered.memberId, super.evcCache.getVerificationCode(registered.email.value)!!
         )
 
         sut.verify(verifyRequest)
 
-        val verifiedMember = sut.findById(registered.memberId!!)
+        val verifiedMember = sut.findById(registered.memberId)
         assertThat(verifiedMember!!.role).isEqualTo(Role.BUYER)
     }
 
@@ -67,7 +67,8 @@ class MemberUseCaseTest : IntegrationTestSupport() {
         sut.changePassword(registered, newPassword)
 
         val changedMember = sut.findById(registered.memberId!!)!!
-        assertThat(changedMember.password)
-            .isEqualTo(passwordEncoder.encode(newPassword))
+        assertThat(
+            passwordEncoder.matches(changedMember.password.value, newPassword)
+        ).isTrue()
     }
 }

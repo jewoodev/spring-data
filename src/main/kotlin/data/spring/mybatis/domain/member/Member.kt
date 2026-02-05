@@ -2,42 +2,50 @@ package data.spring.mybatis.domain.member
 
 import data.spring.mybatis.domain.clock
 import data.spring.mybatis.domain.member.Role.UNVERIFIED
-import data.spring.mybatis.domain.member.request.MemberCreateRequest
-import org.springframework.util.Assert.state
+import data.spring.mybatis.adapter.`in`.member.request.MemberCreateRequest
 import java.time.LocalDateTime
 
 data class Member constructor(
     val memberId: Long? = null,
-    val username: String,
-    var password: String,
-    val email: String,
-    var role: Role = UNVERIFIED,
+    val username: Username,
+    var password: Password,
+    val email: Email,
+    val role: Role = UNVERIFIED,
     val createdAt: LocalDateTime = LocalDateTime.now(clock()),
-    var updatedAt: LocalDateTime = LocalDateTime.now(clock()),
-    var leftAt: LocalDateTime? = null,
+    val updatedAt: LocalDateTime = LocalDateTime.now(clock()),
+    val leftAt: LocalDateTime? = null,
 ) {
-    companion object {
-        fun register(
-            createRequest: MemberCreateRequest, passwordEncoder: PasswordEncoder
-        ): Member {
-            return passwordEncoder.encode(createRequest.password)
-                .let { Member(username = createRequest.username, password = it, email = createRequest.email) }
+    fun activate(): Member {
+        return this.let {
+            check(role == UNVERIFIED) { "이미 활성화된 회원입니다." }
+            this.copy(role = Role.BUYER, updatedAt = LocalDateTime.now(clock()))
         }
     }
 
-    fun activate(): Member {
-        state(role == UNVERIFIED, "이미 활성화된 회원입니다.")
-        this.role = Role.BUYER
-        return this
-    }
-
     fun changePassword(newPassword: String, passwordEncoder: PasswordEncoder): Member {
-        this.password = passwordEncoder.encode(newPassword)
-        return this
+        return this.let {
+            this.copy(password = Password(passwordEncoder.encode(newPassword)),
+                updatedAt = LocalDateTime.now(clock())
+            )
+        }
     }
 
     fun leave(): Member {
-        this.leftAt = LocalDateTime.now(clock())
-        return this
+        return this.let {
+            this.copy(leftAt = LocalDateTime.now(clock()),
+                updatedAt = LocalDateTime.now(clock())
+            )
+        }
+    }
+
+    companion object {
+        fun register(
+            username: String, password: String, email: String, passwordEncoder: PasswordEncoder
+        ): Member {
+            return Member(username = Username(username),
+                password = Password(passwordEncoder.encode(password)),
+                email = Email(email)
+            )
+        }
     }
 }

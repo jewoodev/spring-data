@@ -1,6 +1,6 @@
 package data.spring.mybatis
 
-import data.spring.mybatis.adapter.`in`.email.EmailConfig
+import data.spring.mybatis.adapter.out.email.EmailConfig
 import data.spring.mybatis.adapter.`in`.member.MemberAdapterConfig
 import data.spring.mybatis.application.ApplicationConfig
 import org.springframework.context.annotation.Configuration

@@ -10,5 +10,3 @@ class SimpleMemberDuplicationVerifier(
         this.memberRepository.findDuplicated(username, emailAddr)?.let { throw MemberDuplicationException("이미 가입된 이메일입니다.") }
     }
 }
-
-class MemberDuplicationException(message: String) : RuntimeException(message)

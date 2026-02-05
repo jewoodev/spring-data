@@ -1,7 +1,7 @@
 package data.spring.mybatis.domain.member
 
 import data.spring.mybatis.adapter.`in`.member.SimplePasswordEncoder
-import data.spring.mybatis.domain.member.request.MemberCreateRequest
+import data.spring.mybatis.adapter.`in`.member.request.MemberCreateRequest
 
 class MemberFixture {
     companion object {
@@ -10,7 +10,8 @@ class MemberFixture {
         }
 
         fun createMember(password: String): Member {
-            return Member.register(createMemberCreateRequest(password), createPasswordEncoder())
+            return createMemberCreateRequest()
+                .let { Member.register(it.username, it.password, it.email, createPasswordEncoder()) }
         }
 
         fun createMemberCreateRequest(): MemberCreateRequest {
