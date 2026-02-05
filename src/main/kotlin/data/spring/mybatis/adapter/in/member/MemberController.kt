@@ -2,8 +2,8 @@ package data.spring.mybatis.adapter.`in`.member
 
 import data.spring.mybatis.application.provided.member.MemberUseCase
 import data.spring.mybatis.application.provided.member.request.EmailVerifyRequest
-import data.spring.mybatis.domain.member.request.MemberCreateRequest
-import data.spring.mybatis.domain.member.request.VfcCodeSendRequest
+import data.spring.mybatis.adapter.`in`.member.request.MemberCreateRequest
+import data.spring.mybatis.adapter.`in`.member.request.VfcCodeSendRequest
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

@@ -1,4 +1,4 @@
-package data.spring.mybatis.domain.member.request
+package data.spring.mybatis.adapter.`in`.member.request
 
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotNull
@@ -15,5 +15,4 @@ data class MemberCreateRequest(
 
     @field:Email
     val email: String
-) {
-}
+)
