@@ -2,8 +2,8 @@ package data.spring.mybatis.application.provided.member
 
 import data.spring.mybatis.application.provided.member.request.EmailVerifyRequest
 import data.spring.mybatis.domain.member.Member
-import data.spring.mybatis.domain.member.request.MemberCreateRequest
-import data.spring.mybatis.domain.member.request.VfcCodeSendRequest
+import data.spring.mybatis.adapter.`in`.member.request.MemberCreateRequest
+import data.spring.mybatis.adapter.`in`.member.request.VfcCodeSendRequest
 
 interface MemberUseCase {
     fun register(createRequest: MemberCreateRequest)

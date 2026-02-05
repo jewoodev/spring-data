@@ -1,4 +1,4 @@
-package data.spring.mybatis.domain.member.request
+package data.spring.mybatis.adapter.`in`.member.request
 
 
 data class VfcCodeSendRequest(

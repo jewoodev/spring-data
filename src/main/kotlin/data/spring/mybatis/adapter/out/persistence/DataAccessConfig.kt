@@ -34,6 +34,7 @@ class DataAccessConfig {
         )
 
         factoryBean.setTypeAliasesPackage("data.spring.mybatis.domain")
+        factoryBean.setTypeHandlersPackage("data.spring.mybatis.adapter.out.persistence")
 
         val conf = org.apache.ibatis.session.Configuration()
         conf.isMapUnderscoreToCamelCase = true

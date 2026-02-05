@@ -9,8 +9,8 @@ import data.spring.mybatis.domain.email.EmailSender
 import data.spring.mybatis.domain.member.EmailVerifier
 import data.spring.mybatis.domain.member.Member
 import data.spring.mybatis.domain.member.PasswordEncoder
-import data.spring.mybatis.domain.member.request.MemberCreateRequest
-import data.spring.mybatis.domain.member.request.VfcCodeSendRequest
+import data.spring.mybatis.adapter.`in`.member.request.MemberCreateRequest
+import data.spring.mybatis.adapter.`in`.member.request.VfcCodeSendRequest
 
 class MemberService(
     val memberRepository: MemberRepository,
@@ -22,7 +22,8 @@ class MemberService(
     override fun register(createRequest: MemberCreateRequest) {
         memberDuplicationVerifier.verify(createRequest.username, createRequest.email)
 
-        Member.register(createRequest, passwordEncoder)
+        Member.register(username = createRequest.username, password = createRequest.password,
+            email = createRequest.email, passwordEncoder = passwordEncoder)
             .let { this.memberRepository.save(it) }
     }
 
@@ -38,8 +39,7 @@ class MemberService(
             ?: throw NoDataFoundException("이메일 인증 과정에서 있을 수 없는 회원 식별자 값이 감지되었습니다: ${verifyRequest.memberId}.")
 
         if (emailVerifier.verify(member.email, verifyRequest.verificationCode)) {
-            member.activate()
-                .let { this.memberRepository.update(it) }
+            member.activate().let { this.memberRepository.update(it) }
         } else {
             throw IllegalArgumentException("이메일 인증 코드가 올바르지 않습니다.")
         }
@@ -51,18 +51,15 @@ class MemberService(
     }
 
     override fun findAll(): List<Member> {
-        return this.memberRepository.findAll()
-            .ifEmpty { throw NoDataFoundException("No members found.") }
+        return this.memberRepository.findAll().ifEmpty { throw NoDataFoundException("No members found.") }
     }
 
     override fun changePassword(member: Member, newPassword: String) {
-        member.changePassword(newPassword, passwordEncoder)
-            .let { this.memberRepository.update(it) }
+        member.changePassword(newPassword, passwordEncoder).let { this.memberRepository.update(it) }
     }
 
     override fun leave(member: Member) {
-        member.leave()
-            .let { this.memberRepository.leave(it) }
+        member.leave().let { this.memberRepository.leave(it) }
     }
 
     override fun deleteAll(): Int {

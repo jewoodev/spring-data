@@ -1,4 +1,4 @@
-package data.spring.mybatis.adapter.`in`.email
+package data.spring.mybatis.adapter.out.email
 
 import data.spring.mybatis.domain.email.EmailSender
 import data.spring.mybatis.domain.member.EmailVerifierCache
