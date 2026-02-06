@@ -1,30 +1,58 @@
 package data.spring.mybatis.domain.product
 
 import data.spring.mybatis.domain.clock
-import data.spring.mybatis.domain.product.request.ProductUpdateCommand
+import data.spring.mybatis.application.service.product.command.ProductUpdateCommand
 import java.time.LocalDateTime
 
-data class Product constructor(
+data class Product(
     val productId: Long? = null,
-    val productName: String?,
-    val price: Int?,
-    val quantity: Int?,
-    val createdAt: LocalDateTime = LocalDateTime.now(clock()),
-    var updatedAt: LocalDateTime = LocalDateTime.now(clock()),
+    val productName: ProductName,
+    val price: Price,
+    val quantity: Quantity,
+    val createdAt: LocalDateTime,
+    val updatedAt: LocalDateTime
 ) {
-    companion object {
-        fun updateAll(updateCommand: ProductUpdateCommand): Product {
-            return Product(
-                productId = updateCommand.productId,
-                productName = updateCommand.productName,
-                price = updateCommand.price,
-                quantity = updateCommand.quantity,
-                updatedAt = LocalDateTime.now(clock())
-            )
-        }
+    fun increaseQuantity(amount: Int): Product {
+        return copy(
+            quantity = quantity.increase(amount),
+            updatedAt = LocalDateTime.now(clock())
+        )
     }
 
-    fun isUpdated(): Boolean {
-        return this.productName != null || this.price != null || this.quantity != null
+    fun decreaseQuantity(amount: Int): Product {
+        return copy(
+            quantity = quantity.decrease(amount),
+            updatedAt = LocalDateTime.now(clock())
+        )
+    }
+
+    fun updateInfo(
+        newName: ProductName? = null,
+        newPrice: Price? = null
+    ): Product {
+        require(newName != null || newPrice != null) { "상품 수정의 필수 조건이 만족되지 않았습니다." }
+        return copy(
+            productName = newName ?: productName,
+            price = newPrice ?: price,
+            updatedAt = LocalDateTime.now(clock())
+        )
+    }
+
+    companion object {
+        fun create(
+            productName: ProductName,
+            price: Price,
+            quantity: Quantity
+        ): Product {
+            val now = LocalDateTime.now(clock())
+            return Product(
+                productId = null,
+                productName = productName,
+                price = price,
+                quantity = quantity,
+                createdAt = now,
+                updatedAt = now
+            )
+        }
     }
 }

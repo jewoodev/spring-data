@@ -18,7 +18,9 @@
     - 부분 일치는 앞부분 일치만을 허용한다.
  
 # Domain model
-## 기본 엔티티(BaseEntity)
+## 기본 엔티티
+_Super Domain Model_
+### 속성
 - `createdAt`: 생성 시간
 - `modifiedAt`: 수정 시간
 ---
@@ -65,3 +67,20 @@ _Domain Model Service_
 
 ---
 ## [상품 애그리거트]
+## 상품(Product)
+_Domain Model_
+### 속성
+- `productId`: 식별자
+- `productName`: 상품명
+- `price`: 가격
+- `quantity`: 재고 수량
+### 행위
+- create: 상품 생성: (productName, price, quantity)
+- increaseQuantity: 재고 수량 증가: (amount)
+- decreaseQuantity: 재고 수량 감소: (amount)
+- updateInfo: 상품 정보 수정: (newName, newPrice)
+### 규칙
+- 상품명은 2 ~ 100 자 길이를 갖는다.
+- 상품명은 영어, 숫자, 한글, 공백만 허용된다.
+- 가격은 1원 이상이어야 한다.
+- 재고 수량은 0 이상이어야 한다.
