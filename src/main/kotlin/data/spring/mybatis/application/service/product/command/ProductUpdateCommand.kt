@@ -1,6 +1,6 @@
-package data.spring.mybatis.domain.product.request
+package data.spring.mybatis.application.service.product.command
 
-data class ProductUpdateCommand constructor(
+data class ProductUpdateCommand(
     val productId: Long,
     val productName: String?,
     val price: Int?,

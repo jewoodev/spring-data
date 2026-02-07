@@ -1,7 +1,11 @@
 package data.spring.mybatis.adapter.`in`.product
 
+import data.spring.mybatis.adapter.`in`.product.request.CursorInfo
 import data.spring.mybatis.adapter.`in`.product.request.ProductUpdateBatchRequest
+import data.spring.mybatis.adapter.`in`.response.CursorPageResponse
+import data.spring.mybatis.adapter.`in`.product.response.ProductResponse
 import data.spring.mybatis.application.provided.product.ProductUseCase
+import data.spring.mybatis.application.service.product.command.ProductSearchCond
 import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.*
 
@@ -10,13 +14,42 @@ import org.springframework.web.bind.annotation.*
 class ProductController(
     val productUseCase: ProductUseCase
 ) {
-    @GetMapping("/hello")
-    fun hello(): String {
-        return "Hello World!"
+    @GetMapping("/list")
+    fun getProductsWithCond(
+        @RequestParam(required = false) productName: String?,
+        @RequestParam(required = false) maxPrice: Int?,
+        @RequestParam(required = false) cursor: String?, // encoded cursor
+        @RequestParam(defaultValue = "20") size: Int
+    ): CursorPageResponse<ProductResponse> {
+        if (size !in 10..100) throw PageSizeException("size는 10에서 100 사이여야 합니다: $size")
+
+        val cursorInfo = cursor?.let{ CursorInfo.decode(it) }
+        val products = productUseCase.findByCond(
+            searchCond = if (productName == null && maxPrice == null) null else ProductSearchCond(productName, maxPrice),
+            createdAt = cursorInfo?.createdAt,
+            productId = cursorInfo?.id,
+            size = size + 1
+        )
+
+        val hasNext = products.size > size
+        val content = if (hasNext) products.dropLast(1) else products
+        val nextCursor = if (hasNext) {
+            val lastProduct = content.last()
+            CursorInfo(
+                createdAt = lastProduct.createdAt,
+                id = lastProduct.productId!!
+            ).encode()
+        } else null
+
+        return CursorPageResponse(
+            content = content.map { ProductResponse.fromDomain(it) },
+            nextCursor = nextCursor,
+            hasNext = hasNext
+        )
     }
 
     @PatchMapping("/update")
     fun updateProducts(@Valid @RequestBody updateBatchRequest: ProductUpdateBatchRequest) {
-        this.productUseCase.update(updateBatchRequest.toCommands())
+        updateBatchRequest.toCommands().forEach { this.productUseCase.update(it) }
     }
 }

@@ -8,33 +8,6 @@
         values (#{productName}, #{price}, #{quantity}, #{createdAt}, #{updatedAt})
     </insert>
 
-    <insert id="saveAll" useGeneratedKeys="true" keyProperty="productId">
-        insert into product (product_name, price, quantity, created_at, updated_at)
-        values
-        <foreach collection="products" item="product" separator=",">
-            (#{product.productName}, #{product.price}, #{product.quantity}, #{product.createdAt}, #{product.updatedAt})
-        </foreach>
-    </insert>
-
-    <select id="findById" resultType="Product">
-        select *
-        from product
-        where product_id = #{productId}
-    </select>
-
-    <select id="findWithCond" resultType="Product">
-        select *
-        from product
-        <where>
-            <if test="productName != null and productName != ''">
-                product_name like concat(#{productName}, '%')
-            </if>
-            <if test="maxPrice != null">
-                and price &lt;= #{maxPrice}
-            </if>
-        </where>
-    </select>
-
     <update id="update">
         update product
         <set>
@@ -46,7 +19,34 @@
         where product_id = #{productId}
     </update>
 
-    <delete id="deleteAll">
+    <delete id="truncate">
         truncate table product restart identity
     </delete>
+
+    <select id="findById" resultType="Product">
+        select *
+        from product
+        where product_id = #{productId}
+    </select>
+
+    <select id="findByCond" resultType="Product">
+        select *
+        from product
+        <where>
+            <if test="searchCond.productName != null and searchCond.productName != ''">
+                product_name like concat(#{searchCond.productName}, '%')
+            </if>
+            <if test="searchCond.maxPrice != null">
+                and price &lt;= #{searchCond.maxPrice}
+            </if>
+            <if test="createdAt != null and productId != null">
+                (createdAt, productId) &lt; (#{createdAt}, #{productId})
+            </if>
+        </where>
+        limit #{size}
+    </select>
+
+    <select id="findAll" resultType="Product">
+        select * from product
+    </select>
 </mapper>

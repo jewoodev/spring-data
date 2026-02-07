@@ -1,5 +1,6 @@
 package data.spring.mybatis.adapter.`in`
 
+import data.spring.mybatis.adapter.`in`.response.ErrorResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.web.bind.MethodArgumentNotValidException

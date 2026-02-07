@@ -1,5 +1,6 @@
 package data.spring.mybatis
 
+import com.ninjasquad.springmockk.MockkBean
 import data.spring.mybatis.adapter.`in`.member.MemberController
 import data.spring.mybatis.adapter.`in`.product.ProductController
 import data.spring.mybatis.application.provided.member.MemberUseCase
@@ -19,7 +20,7 @@ abstract class ControllerTestSupport {
     @Autowired
     protected lateinit var mockMvc: MockMvc
 
-    @MockitoBean
+    @MockkBean
     protected lateinit var productUseCase: ProductUseCase
 
     @MockitoBean

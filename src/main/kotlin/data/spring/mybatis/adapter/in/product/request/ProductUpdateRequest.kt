@@ -1,6 +1,6 @@
 package data.spring.mybatis.adapter.`in`.product.request
 
-import data.spring.mybatis.domain.product.request.ProductUpdateCommand
+import data.spring.mybatis.application.service.product.command.ProductUpdateCommand
 import jakarta.validation.constraints.AssertFalse
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size

@@ -1,36 +1,39 @@
 package data.spring.mybatis.adapter.out.persistence.product
 
 import data.spring.mybatis.application.required.product.ProductRepository
-import data.spring.mybatis.application.service.product.command.ProductSearchCommand
+import data.spring.mybatis.application.service.product.command.ProductSearchCond
 import data.spring.mybatis.domain.product.Product
+import java.time.LocalDateTime
 
 class ProductPersister(
     val productMapper: ProductMapper,
-): ProductRepository {
-    override fun save(product: Product) {
-        this.productMapper.save(product)
+) : ProductRepository {
+    override fun save(product: Product): Int {
+        return if (product.productId == null) {
+            productMapper.save(product)
+        } else {
+            productMapper.update(product)
+        }
     }
 
-    override fun saveAll(products: List<Product>): Int {
-        return this.productMapper.saveAll(products)
+    override fun truncate(): Int {
+        return productMapper.truncate()
     }
 
     override fun findById(productId: Long): Product? {
-        return this.productMapper.findById(productId)
+        return productMapper.findById(productId)
     }
 
-    override fun findWithCond(searchCommand: ProductSearchCommand): List<Product> {
-        return this.productMapper.findWithCond(searchCommand)
+    override fun findByCond(
+        searchCond: ProductSearchCond?,
+        createdAt: LocalDateTime?,
+        productId: Long?,
+        size: Int
+    ): List<Product> {
+        return productMapper.findByCond(searchCond, createdAt, productId, size)
     }
 
-    override fun update(products: List<Product>): Int {
-        var cnt = 0
-        products.filter { it.isUpdated() }
-            .forEach { cnt += this.productMapper.update(it) }
-        return cnt
-    }
-
-    override fun deleteAll(): Int {
-        return this.productMapper.deleteAll()
+    override fun findAll(): List<Product> {
+        return productMapper.findAll()
     }
 }
