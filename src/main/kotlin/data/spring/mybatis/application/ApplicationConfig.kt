@@ -8,7 +8,7 @@ import data.spring.mybatis.application.service.member.MemberService
 import data.spring.mybatis.application.service.product.ProductService
 import data.spring.mybatis.domain.email.EmailSender
 import data.spring.mybatis.domain.member.EmailVerifier
-import data.spring.mybatis.application.provided.member.MemberDuplicationVerifier
+import data.spring.mybatis.domain.member.MemberDuplicationVerifier
 import data.spring.mybatis.domain.member.PasswordEncoder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

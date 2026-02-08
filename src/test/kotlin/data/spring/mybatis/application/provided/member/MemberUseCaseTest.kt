@@ -1,7 +1,7 @@
 package data.spring.mybatis.application.provided.member
 
 import data.spring.mybatis.IntegrationTestSupport
-import data.spring.mybatis.adapter.`in`.member.verify.MemberDuplicationException
+import data.spring.mybatis.domain.member.MemberDuplicationException
 import data.spring.mybatis.application.exception.NoDataFoundException
 import data.spring.mybatis.application.provided.member.dto.EmailVerifyCommand
 import data.spring.mybatis.application.provided.member.dto.MemberCreateCommand

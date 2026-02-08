@@ -8,13 +8,15 @@ import org.junit.jupiter.api.Test
 class MemberTest {
     private val password = Password("testPassword")
     private val passwordEncoder = SimplePasswordEncoder()
+    private val duplicationVerifier = MemberDuplicationVerifier { username, email -> false }
 
     @Test
     fun `register member successfully`() {
         val sut = Member.register(username = Username("testUser"),
             email = Email("test@example.com"),
             password = password,
-            passwordEncoder = passwordEncoder
+            passwordEncoder = passwordEncoder,
+            duplicationVerifier = duplicationVerifier
         )
 
         assertThat(sut.role).isEqualTo(Role.UNVERIFIED)
@@ -28,7 +30,8 @@ class MemberTest {
         val sut = Member.register(username = Username("testUser"),
             email = Email("test@example.com"),
             password = password,
-            passwordEncoder = passwordEncoder
+            passwordEncoder = passwordEncoder,
+            duplicationVerifier = duplicationVerifier
         )
 
         val isActivated = sut.activate()
@@ -41,7 +44,8 @@ class MemberTest {
         val sut = Member.register(username = Username("testUser"),
             email = Email("test@example.com"),
             password = password,
-            passwordEncoder = passwordEncoder
+            passwordEncoder = passwordEncoder,
+            duplicationVerifier = duplicationVerifier
         )
 
         val isActivated = sut.activate()
@@ -56,7 +60,8 @@ class MemberTest {
         val sut = Member.register(username = Username("testUser"),
             email = Email("test@example.com"),
             password = password,
-            passwordEncoder = passwordEncoder
+            passwordEncoder = passwordEncoder,
+            duplicationVerifier = duplicationVerifier
         )
         val newPassword = "newTestPassword"
 
@@ -72,7 +77,8 @@ class MemberTest {
         val sut = Member.register(username = Username("testUser"),
             email = Email("test@example.com"),
             password = password,
-            passwordEncoder = passwordEncoder
+            passwordEncoder = passwordEncoder,
+            duplicationVerifier = duplicationVerifier
         )
 
         val leftMember = sut.leave()

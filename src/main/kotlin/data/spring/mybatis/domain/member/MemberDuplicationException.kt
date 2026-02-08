@@ -1,3 +1,3 @@
-package data.spring.mybatis.adapter.`in`.member.verify
+package data.spring.mybatis.domain.member
 
 class MemberDuplicationException(message: String) : RuntimeException(message)

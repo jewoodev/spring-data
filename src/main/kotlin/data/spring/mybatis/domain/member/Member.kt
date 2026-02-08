@@ -44,13 +44,26 @@ data class Member constructor(
             username: Username,
             password: Password,
             email: Email,
-            passwordEncoder: PasswordEncoder
+            passwordEncoder: PasswordEncoder,
+            duplicationVerifier: MemberDuplicationVerifier
         ): Member {
-            return Member(
-                username = username,
-                password = Password(passwordEncoder.encode(password.value)),
-                email = email
-            )
+            return if (checkDuplication(username, email, duplicationVerifier)) {
+                throw MemberDuplicationException("아이디나 이메일이 중복되었습니다.")
+            } else {
+                Member(
+                    username = username,
+                    password = Password(passwordEncoder.encode(password.value)),
+                    email = email
+                )
+            }
+        }
+
+        fun checkDuplication(
+            username: Username,
+            email: Email,
+            memberDuplicationVerifier: MemberDuplicationVerifier
+        ): Boolean {
+            return memberDuplicationVerifier.verify(username.value, email.value)
         }
     }
 }

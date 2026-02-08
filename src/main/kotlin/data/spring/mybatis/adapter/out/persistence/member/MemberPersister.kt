@@ -26,8 +26,8 @@ class MemberPersister(
         return this.memberMapper.findByEmail(emailAddr)
     }
 
-    override fun findDuplicated(username: String, emailAddr: String): Member? {
-        return this.memberMapper.findDuplicated(username, emailAddr)
+    override fun checkDuplication(username: String, emailAddr: String): Boolean {
+        return this.memberMapper.findDuplicated(username, emailAddr) != null
     }
 
     override fun findAll(): List<Member> {

@@ -1,7 +1,7 @@
 package data.spring.mybatis.application.service.member
 
 import data.spring.mybatis.application.exception.NoDataFoundException
-import data.spring.mybatis.application.provided.member.MemberDuplicationVerifier
+import data.spring.mybatis.domain.member.MemberDuplicationVerifier
 import data.spring.mybatis.application.provided.member.MemberUseCase
 import data.spring.mybatis.application.required.member.MemberRepository
 import data.spring.mybatis.domain.email.EmailSender
@@ -23,11 +23,13 @@ class MemberService(
     val emailSender: EmailSender
 ) : MemberUseCase {
     override fun register(createCommand: MemberCreateCommand) {
-        memberDuplicationVerifier.verify(createCommand.username, createCommand.email)
-
-        Member.register(username = Username(createCommand.username), password = Password(createCommand.password),
-            email = Email(createCommand.email), passwordEncoder = passwordEncoder)
-            .let { this.memberRepository.save(it) }
+        Member.register(
+            username = Username(createCommand.username),
+            password = Password(createCommand.password),
+            email = Email(createCommand.email),
+            passwordEncoder = passwordEncoder,
+            duplicationVerifier = memberDuplicationVerifier
+        ).let { this.memberRepository.save(it) }
     }
 
     override fun sendVerificationCode(codeSendCommand: VfcCodeSendCommand) {

@@ -9,7 +9,7 @@ interface MemberRepository {
     fun findById(memberId: Long): Member?
     fun findByUsername(username: String): Member?
     fun findByEmail(emailAddr: String): Member?
-    fun findDuplicated(username: String, emailAddr: String): Member?
+    fun checkDuplication(username: String, emailAddr: String): Boolean
     fun findAll(): List<Member>
 
     fun update(member: Member)
