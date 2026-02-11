@@ -27,28 +27,28 @@ data class Product(
     }
 
     fun updateInfo(
-        newName: ProductName? = null,
-        newPrice: Price? = null
+        newName: String? = null,
+        newPrice: Int? = null
     ): Product {
         require(newName != null || newPrice != null) { "상품 수정의 필수 조건이 만족되지 않았습니다." }
         return copy(
-            productName = newName ?: productName,
-            price = newPrice ?: price,
+            productName = if (newName != null) ProductName(newName) else productName,
+            price = if (newPrice != null) Price(newPrice) else price,
             updatedAt = LocalDateTime.now(clock())
         )
     }
 
     companion object {
         fun create(
-            productName: ProductName,
-            price: Price,
-            quantity: Quantity
+            productName: String,
+            price: Int,
+            quantity: Int
         ): Product {
             return Product(
                 productId = null,
-                productName = productName,
-                price = price,
-                quantity = quantity
+                productName = ProductName(productName),
+                price = Price(price),
+                quantity = Quantity(quantity)
             )
         }
     }

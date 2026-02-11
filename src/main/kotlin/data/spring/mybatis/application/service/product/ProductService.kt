@@ -27,8 +27,8 @@ open class ProductService(
     override fun update(updateCommand: ProductUpdateCommand): Int {
         return updateCommand.let {
                 findById(it.productId).updateInfo(
-                    it.productName?.let { value -> ProductName(value) },
-                    it.price?.let { amount -> Price(amount) }
+                    it.productName,
+                    it.price
                 )
         }.let { productRepository.save(it) }
     }
