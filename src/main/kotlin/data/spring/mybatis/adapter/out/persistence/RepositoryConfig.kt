@@ -1,7 +1,7 @@
 package data.spring.mybatis.adapter.out.persistence
 
 import data.spring.mybatis.adapter.out.persistence.member.MemberMapper
-import data.spring.mybatis.adapter.out.persistence.member.MemberPersister
+import data.spring.mybatis.adapter.out.persistence.member.MemberMaBatisRepository
 import data.spring.mybatis.adapter.out.persistence.product.ProductMapper
 import data.spring.mybatis.adapter.out.persistence.product.ProductPersister
 import data.spring.mybatis.application.required.member.MemberRepository
@@ -18,6 +18,6 @@ class RepositoryConfig {
 
     @Bean
     fun memberRepository(memberMapper: MemberMapper): MemberRepository {
-        return MemberPersister(memberMapper)
+        return MemberMaBatisRepository(memberMapper)
     }
 }

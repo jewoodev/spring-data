@@ -1,5 +1,6 @@
 package data.spring.mybatis.adapter.`in`.member.request
 
+import data.spring.mybatis.application.provided.member.dto.MemberCreateCommand
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
@@ -15,4 +16,6 @@ data class MemberCreateRequest(
 
     @field:Email
     val email: String
-)
+) {
+    fun toCommand(): MemberCreateCommand = MemberCreateCommand(username, password, email)
+}

@@ -5,17 +5,17 @@ import org.apache.ibatis.annotations.Mapper
 
 @Mapper
 interface MemberMapper {
-    fun save(member: Member)
+    fun save(member: Member): Int
     fun saveAll(members: List<Member>): Int
+
+    fun update(member: Member): Int
+    fun leave(member: Member): Int
+
+    fun truncate(): Int
 
     fun findById(memberId: Long): Member?
     fun findByUsername(username: String): Member?
     fun findByEmail(emailAddr: String): Member?
     fun findDuplicated(username: String, emailAddr: String): Member?
     fun findAll(): List<Member>
-
-    fun update(member: Member)
-    fun leave(member: Member)
-
-    fun deleteAll(): Int
 }

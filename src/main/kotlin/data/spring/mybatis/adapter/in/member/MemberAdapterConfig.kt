@@ -6,7 +6,7 @@ import data.spring.mybatis.adapter.`in`.member.verify.SimpleMemberDuplicationVer
 import data.spring.mybatis.application.required.member.MemberRepository
 import data.spring.mybatis.domain.member.EmailVerifier
 import data.spring.mybatis.domain.member.EmailVerifierCache
-import data.spring.mybatis.application.provided.member.MemberDuplicationVerifier
+import data.spring.mybatis.domain.member.MemberDuplicationVerifier
 import data.spring.mybatis.domain.member.PasswordEncoder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

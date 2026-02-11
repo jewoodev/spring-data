@@ -1,8 +1,10 @@
 package data.spring.mybatis
 
+import data.spring.mybatis.adapter.`in`.member.SimplePasswordEncoder
 import data.spring.mybatis.application.provided.member.MemberUseCase
 import data.spring.mybatis.application.provided.product.ProductUseCase
 import data.spring.mybatis.domain.member.EmailVerifierCache
+import data.spring.mybatis.domain.member.PasswordEncoder
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ContextConfiguration
@@ -21,4 +23,7 @@ abstract class IntegrationTestSupport {
 
     @Autowired
     protected lateinit var evcCache: EmailVerifierCache
+
+    @Autowired
+    protected lateinit var passwordEncoder: PasswordEncoder
 }
