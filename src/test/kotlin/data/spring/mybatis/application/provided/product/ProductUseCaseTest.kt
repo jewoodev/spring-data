@@ -19,7 +19,7 @@ class ProductUseCaseTest: IntegrationTestSupport() {
     }
 
     @Test
-    fun saveProductsAndFindAllSuccessfully() {
+    fun `save products and find all successfully`() {
         // given
         val sut = super.productUseCase
         val products = listOf(
@@ -45,7 +45,7 @@ class ProductUseCaseTest: IntegrationTestSupport() {
     }
 
     @Test
-    fun findByIdSuccessfully() {
+    fun `find product by id successfully`() {
         val sut = super.productUseCase
         val products = listOf(
             Product.create(productName = "리얼 마이바티스", price = 30000, quantity = 100),
@@ -60,7 +60,7 @@ class ProductUseCaseTest: IntegrationTestSupport() {
     }
 
     @Test
-    fun findByCursorSuccessfully() {
+    fun `find products by cursor successfully`() {
         val sut = super.productUseCase
         val products = mutableListOf(Product.create("testProduct0", 10000, 100))
         for (i in 1..30) {
@@ -76,7 +76,7 @@ class ProductUseCaseTest: IntegrationTestSupport() {
     }
 
     @Test
-    fun findByCursorWithCondSuccessfully() {
+    fun `find products by cursor with conditions successfully`() {
         // given
         val sut = super.productUseCase
         val products = listOf(
@@ -96,7 +96,7 @@ class ProductUseCaseTest: IntegrationTestSupport() {
     }
 
     @Test
-    fun findByIdInFailureWhenNoMatchingProduct() {
+    fun `find product by id fails when no matching product exists`() {
         // given
         val sut = super.productUseCase
         sut.save(Product.create(productName = "testProduct", price = 10000, quantity = 100))
@@ -107,7 +107,7 @@ class ProductUseCaseTest: IntegrationTestSupport() {
     }
 
     @Test
-    fun findByCondInFailureWhenNoMatchingProduct() {
+    fun `find products by conditions fails when no matching product exists`() {
         // given
         val sut = super.productUseCase
         val products = listOf(
@@ -124,7 +124,7 @@ class ProductUseCaseTest: IntegrationTestSupport() {
     }
 
     @Test
-    fun updateProductsSuccessfully() {
+    fun `update products successfully`() {
         // given
         val sut = super.productUseCase
         val products = listOf(

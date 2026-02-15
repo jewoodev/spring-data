@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 
 class ProductTest {
     @Test
-    fun createSuccessfully() {
+    fun `product is created successfully`() {
         val product = Product.create("Test Product", 1000, 100)
         assertThat(product)
             .extracting("productName", "price", "quantity")
@@ -14,7 +14,7 @@ class ProductTest {
     }
     
     @Test
-    fun increaseQuantityuccessfully() {
+    fun `product quantity is increased successfully`() {
         // given
         val original = Product.create("Test Product", 1000, 100)
         
@@ -27,7 +27,7 @@ class ProductTest {
     }
 
     @Test
-    fun decreasedQuantitySuccessfully() {
+    fun `product quantity is decreased successfully`() {
         // given
         val product = Product.create("Test Product", 1000, 100)
         
@@ -40,7 +40,7 @@ class ProductTest {
     }
 
     @Test
-    fun infoUpdateSuccessfully() {
+    fun `product info is updated successfully`() {
         // given
         val product = Product.create("Test Product", 1000, 100)
         val newName = "Updated Product"
@@ -56,7 +56,7 @@ class ProductTest {
     }
 
     @Test
-    fun infoCanBeUpdatedWithNameOnly() {
+    fun `product name can be updated alone`() {
         // given
         val product = Product.create("Test Product", 1000, 100)
         val newName = "Updated Product"
@@ -70,7 +70,7 @@ class ProductTest {
     }
 
     @Test
-    fun infoCanBeUpdatedWithPriceOnly() {
+    fun `product price can be updated alone`() {
         // given
         val original = Product.create("Test Product", 1000, 100)
         val newPrice = 2000
@@ -84,7 +84,7 @@ class ProductTest {
     }
 
     @Test
-    fun infoUpdateInFailureWhenNoInfoProvided() {
+    fun `product info update fails when no info is provided`() {
         // given
         val product = Product.create("Test Product", 1000, 100)
         

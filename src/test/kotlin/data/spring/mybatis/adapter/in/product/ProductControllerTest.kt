@@ -14,7 +14,7 @@ import java.time.LocalDateTime
 
 class ProductControllerTest: ControllerTestSupport() {
     @Test
-    fun getProductsWithPagingSuccessfully() {
+    fun `get products with paging successfully`() {
         val url = "/products/v1/list"
         val products = ProductFixture.createProducts(number = 20)
         every { productUseCase.findByCond(createdAt = null, productId = null) } returns products
@@ -29,7 +29,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
-    fun getProductsWithCondSuccessfully() {
+    fun `get products with conditions successfully`() {
         val url = "/products/v1/list"
         val queryParam = "?maxPrice=10000"
         val products = ProductFixture.createProducts(number = 21)
@@ -46,7 +46,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
-    fun getProductsWithCursorSuccessfully() {
+    fun `get products with cursor successfully`() {
         val url = "/products/v1/list"
         val createdAt = LocalDateTime.now(testClock())
         val cursor = CursorInfo(createdAt = createdAt, id = 21L).encode()
@@ -65,7 +65,7 @@ class ProductControllerTest: ControllerTestSupport() {
 
     // ================================ Validation Test ================================
     @Test
-    fun updateProductWithNoData() {
+    fun `update product fails when no data is provided`() {
         // given
         val content = """
                 {    
@@ -91,7 +91,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
-    fun updateProductWithShortName() {
+    fun `update product fails when product name is too short`() {
         // given
         val content = """
                 {    

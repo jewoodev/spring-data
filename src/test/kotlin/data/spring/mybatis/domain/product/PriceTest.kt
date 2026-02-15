@@ -8,14 +8,14 @@ import org.junit.jupiter.params.provider.ValueSource
 
 class PriceTest {
     @Test
-    fun createSuccessfully() {
+    fun `price is created successfully`() {
         val amount = 1000
         val price = Price(amount)
         assertThat(price.amount).isEqualTo(amount)
     }
 
     @Test
-    fun createInFailureWithInvalidAmount() {
+    fun `price creation fails with invalid amount`() {
         assertThatThrownBy { Price(0) }
             .isInstanceOf(IllegalArgumentException::class.java)
             .hasMessage("가격은 1 이상이어야 합니다.")
