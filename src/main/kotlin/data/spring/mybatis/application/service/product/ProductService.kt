@@ -2,12 +2,10 @@ package data.spring.mybatis.application.service.product
 
 import data.spring.mybatis.application.exception.NoDataFoundException
 import data.spring.mybatis.application.provided.product.ProductUseCase
+import data.spring.mybatis.application.provided.product.dto.ProductSearchCond
+import data.spring.mybatis.application.provided.product.dto.ProductUpdateCommand
 import data.spring.mybatis.application.required.product.ProductRepository
-import data.spring.mybatis.application.service.product.command.ProductSearchCond
 import data.spring.mybatis.domain.product.Product
-import data.spring.mybatis.application.service.product.command.ProductUpdateCommand
-import data.spring.mybatis.domain.product.Price
-import data.spring.mybatis.domain.product.ProductName
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 

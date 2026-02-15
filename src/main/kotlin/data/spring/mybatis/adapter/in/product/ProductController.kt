@@ -2,10 +2,10 @@ package data.spring.mybatis.adapter.`in`.product
 
 import data.spring.mybatis.adapter.`in`.product.request.CursorInfo
 import data.spring.mybatis.adapter.`in`.product.request.ProductUpdateBatchRequest
-import data.spring.mybatis.adapter.`in`.response.CursorPageResponse
 import data.spring.mybatis.adapter.`in`.product.response.ProductResponse
+import data.spring.mybatis.adapter.`in`.response.CursorPageResponse
 import data.spring.mybatis.application.provided.product.ProductUseCase
-import data.spring.mybatis.application.service.product.command.ProductSearchCond
+import data.spring.mybatis.application.provided.product.dto.ProductSearchCond
 import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.*
 

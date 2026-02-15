@@ -1,7 +1,7 @@
 package data.spring.mybatis.adapter.out.persistence.product
 
+import data.spring.mybatis.application.provided.product.dto.ProductSearchCond
 import data.spring.mybatis.application.required.product.ProductRepository
-import data.spring.mybatis.application.service.product.command.ProductSearchCond
 import data.spring.mybatis.domain.product.Product
 import java.time.LocalDateTime
 

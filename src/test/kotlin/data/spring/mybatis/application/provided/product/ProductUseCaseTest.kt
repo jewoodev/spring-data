@@ -2,11 +2,9 @@ package data.spring.mybatis.application.provided.product
 
 import data.spring.mybatis.IntegrationTestSupport
 import data.spring.mybatis.application.exception.NoDataFoundException
-import data.spring.mybatis.application.service.product.command.ProductSearchCond
-import data.spring.mybatis.application.service.product.command.ProductUpdateCommand
-import data.spring.mybatis.domain.product.Price
+import data.spring.mybatis.application.provided.product.dto.ProductSearchCond
+import data.spring.mybatis.application.provided.product.dto.ProductUpdateCommand
 import data.spring.mybatis.domain.product.Product
-import data.spring.mybatis.domain.product.Quantity
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.AfterEach

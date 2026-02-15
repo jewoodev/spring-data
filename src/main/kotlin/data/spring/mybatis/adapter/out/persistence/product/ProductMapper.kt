@@ -1,6 +1,6 @@
 package data.spring.mybatis.adapter.out.persistence.product
 
-import data.spring.mybatis.application.service.product.command.ProductSearchCond
+import data.spring.mybatis.application.provided.product.dto.ProductSearchCond
 import data.spring.mybatis.domain.product.Product
 import org.apache.ibatis.annotations.Mapper
 import org.apache.ibatis.annotations.Param

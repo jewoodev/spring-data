@@ -1,6 +1,6 @@
 package data.spring.mybatis.adapter.`in`.product.request
 
-import data.spring.mybatis.application.service.product.command.ProductUpdateCommand
+import data.spring.mybatis.application.provided.product.dto.ProductUpdateCommand
 import jakarta.validation.Valid
 
 data class ProductUpdateBatchRequest(

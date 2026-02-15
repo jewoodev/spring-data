@@ -2,14 +2,15 @@ package data.spring.mybatis.adapter.`in`.product
 
 import data.spring.mybatis.ControllerTestSupport
 import data.spring.mybatis.adapter.`in`.product.request.CursorInfo
-import data.spring.mybatis.application.service.product.command.ProductSearchCond
+import data.spring.mybatis.application.provided.product.dto.ProductSearchCond
 import data.spring.mybatis.domain.testClock
 import io.mockk.every
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.time.LocalDateTime
 
 class ProductControllerTest: ControllerTestSupport() {

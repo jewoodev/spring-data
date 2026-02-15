@@ -1,6 +1,5 @@
 package data.spring.mybatis
 
-import data.spring.mybatis.adapter.`in`.member.SimplePasswordEncoder
 import data.spring.mybatis.application.provided.member.MemberUseCase
 import data.spring.mybatis.application.provided.product.ProductUseCase
 import data.spring.mybatis.domain.member.EmailVerifierCache

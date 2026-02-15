@@ -1,8 +1,8 @@
 package data.spring.mybatis.application.provided.product
 
-import data.spring.mybatis.application.service.product.command.ProductSearchCond
+import data.spring.mybatis.application.provided.product.dto.ProductSearchCond
+import data.spring.mybatis.application.provided.product.dto.ProductUpdateCommand
 import data.spring.mybatis.domain.product.Product
-import data.spring.mybatis.application.service.product.command.ProductUpdateCommand
 import java.time.LocalDateTime
 
 interface ProductUseCase {
