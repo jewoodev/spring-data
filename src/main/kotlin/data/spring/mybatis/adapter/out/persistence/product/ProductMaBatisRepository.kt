@@ -5,7 +5,7 @@ import data.spring.mybatis.application.service.product.command.ProductSearchCond
 import data.spring.mybatis.domain.product.Product
 import java.time.LocalDateTime
 
-class ProductPersister(
+class ProductMaBatisRepository(
     val productMapper: ProductMapper,
 ) : ProductRepository {
     override fun save(product: Product): Int {
