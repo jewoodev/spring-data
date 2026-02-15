@@ -1,13 +1,17 @@
 package data.spring.mybatis.adapter.`in`.product
 
 import data.spring.mybatis.adapter.`in`.product.request.CursorInfo
+import data.spring.mybatis.adapter.`in`.product.request.ProductCreateRequest
 import data.spring.mybatis.adapter.`in`.product.request.ProductUpdateBatchRequest
 import data.spring.mybatis.adapter.`in`.product.response.ProductResponse
 import data.spring.mybatis.adapter.`in`.response.CursorPageResponse
 import data.spring.mybatis.application.provided.product.ProductUseCase
+import data.spring.mybatis.application.provided.product.dto.ProductCreateCommand
 import data.spring.mybatis.application.provided.product.dto.ProductSearchCond
 import jakarta.validation.Valid
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.net.URI
 
 @RequestMapping("/products/v1")
 @RestController
@@ -46,6 +50,12 @@ class ProductController(
             nextCursor = nextCursor,
             hasNext = hasNext
         )
+    }
+
+    @PostMapping("/save")
+    fun createProduct(@Valid @RequestBody createRequest: ProductCreateRequest): ResponseEntity<String> {
+        productUseCase.save(createRequest.toCommand())
+        return ResponseEntity.created(URI.create("products/v1/list")).body("상품 저장에 성공했습니다.")
     }
 
     @PatchMapping("/update")
